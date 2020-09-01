@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ezhil</title>
-    <link>http://shawn102400.github.io/</link>
+    <link>https://shawn102400.github.io/</link>
     <description>Recent content on Ezhil</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© Copyright notice</copyright>
     <lastBuildDate>Tue, 01 Sep 2020 23:33:52 +0800</lastBuildDate>
     
-	<atom:link href="http://shawn102400.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://shawn102400.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>多线程1</title>
-      <link>http://shawn102400.github.io/post/myfirst/</link>
+      <link>https://shawn102400.github.io/post/myfirst/</link>
       <pubDate>Tue, 01 Sep 2020 23:33:52 +0800</pubDate>
       
-      <guid>http://shawn102400.github.io/post/myfirst/</guid>
+      <guid>https://shawn102400.github.io/post/myfirst/</guid>
       <description>1.1 简介 线程和进程 进程：是执行中一段程序， 进程是系统进行资源分配和调度的一个独立单位.
 线程: 比进程更小的能独立运行的基本单位，单个进程中执行中每个任务就是一个线程。线程是进程中执行运算的最小单位。
 同步和异步   同步：同步方法必须等到方法调用返回后，才能继续后继的行为。也就是说，同步方法执行时，如果没有返回，则后面的方法是执行不到的。同步方法调用，调用过程中可能出现阻塞和等待。
