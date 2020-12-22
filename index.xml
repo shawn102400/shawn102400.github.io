@@ -1,31 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ezhil</title>
-    <link>https://shawn102400.github.io/</link>
-    <description>Recent content on Ezhil</description>
+    <title>My New Hugo Site</title>
+    <link>http://shawn102400.github.io/</link>
+    <description>Recent content on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>© Copyright notice</copyright>
-    <lastBuildDate>Tue, 01 Sep 2020 23:33:52 +0800</lastBuildDate>
-    
-	<atom:link href="https://shawn102400.github.io/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>多线程1</title>
-      <link>https://shawn102400.github.io/post/myfirst/</link>
-      <pubDate>Tue, 01 Sep 2020 23:33:52 +0800</pubDate>
-      
-      <guid>https://shawn102400.github.io/post/myfirst/</guid>
-      <description>1.1 简介 线程和进程 进程：是执行中一段程序， 进程是系统进行资源分配和调度的一个独立单位.
-线程: 比进程更小的能独立运行的基本单位，单个进程中执行中每个任务就是一个线程。线程是进程中执行运算的最小单位。
-同步和异步   同步：同步方法必须等到方法调用返回后，才能继续后继的行为。也就是说，同步方法执行时，如果没有返回，则后面的方法是执行不到的。同步方法调用，调用过程中可能出现阻塞和等待。
-比如说，java读取控制台输入就是同步方法。
-  异步：异步方法调用后立即返回，可以立即执行后继的方法。异步方法的返回结果，采用通知的方式来告知调用者。异步方法调用，调用过程中不会出现阻塞和等待。
-举个例子：js的ajax方法就默认是异步调用的，执行后马上返回，继续执行下面的代码。如果你想操作结果，就需要传递success方法。那么异步方法调用完成后，会通知你返回结果并调用success方法。也就是说异步方法不会马上得到结果的。
-  并发和并行  并发 ：运行多个任务，不一定要同时，可以交替运行。 并行：同时运行多个任务，互不干涉。  1.</description>
-    </item>
-    
+    <language>en-us</language><atom:link href="http://shawn102400.github.io/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
