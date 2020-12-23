@@ -1,0 +1,6 @@
+baseURL = "https://shawn102400.github.io/"
+languageCode = "en-us"
+title = "寒冰小站"
+[author]
+    name = "shawn"
+    homepage = "https://shawn102400.github.io/"
