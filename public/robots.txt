@@ -1,2 +1,0 @@
-User-agent: *
-Sitemap: https://blog.shawn1024.fun/sitemap.xml

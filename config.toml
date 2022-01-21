@@ -1,5 +1,5 @@
 baseURL = "https://blog.shawn1024.fun/"
-languageCode = "zh-cn"
+languageCode = "en"
 defaultContentLanguage = "zh-cn"                             # en / zh-cn / ... (This field determines which i18n file to use)
 title = "寒冰小站"
 preserveTaxonomyNames = true
