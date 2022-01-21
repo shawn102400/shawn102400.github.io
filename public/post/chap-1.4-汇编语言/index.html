@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>汇编语言 - 寒冰小站</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="shawn" /><meta name="description" content="汇编语言 1. 机器语言与汇编语言 1.1 机器语言简介 对于计算机来说，能识别的只有0,1两个数字。最早的时候，程序员就是用0，1这2个符号来进行编码，不" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.92.0 with theme even" />
+
+
+<link rel="canonical" href="https://blog.shawn1024.fun/post/chap-1.4-%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="汇编语言" />
+<meta property="og:description" content="汇编语言 1. 机器语言与汇编语言 1.1 机器语言简介 对于计算机来说，能识别的只有0,1两个数字。最早的时候，程序员就是用0，1这2个符号来进行编码，不" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.shawn1024.fun/post/chap-1.4-%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-08-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-08-01T00:00:00+00:00" />
+
+<meta itemprop="name" content="汇编语言">
+<meta itemprop="description" content="汇编语言 1. 机器语言与汇编语言 1.1 机器语言简介 对于计算机来说，能识别的只有0,1两个数字。最早的时候，程序员就是用0，1这2个符号来进行编码，不"><meta itemprop="datePublished" content="2021-08-01T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-08-01T00:00:00+00:00" />
+<meta itemprop="wordCount" content="899">
+<meta itemprop="keywords" content="操作系统," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="汇编语言"/>
+<meta name="twitter:description" content="汇编语言 1. 机器语言与汇编语言 1.1 机器语言简介 对于计算机来说，能识别的只有0,1两个数字。最早的时候，程序员就是用0，1这2个符号来进行编码，不"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">寒冰小站</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">寒冰小站</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">汇编语言</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-08-01 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"> 操作系统 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#汇编语言">汇编语言</a>
+          <ul>
+            <li><a href="#1-机器语言与汇编语言">1. 机器语言与汇编语言</a></li>
+            <li><a href="#2-指令执行">2. 指令执行</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="汇编语言">汇编语言</h2>
+<h3 id="1-机器语言与汇编语言">1. 机器语言与汇编语言</h3>
+<p><strong>1.1 机器语言简介</strong>
+对于计算机来说，能识别的只有0,1两个数字。最早的时候，程序员就是用0，1这2个符号来进行编码，不如远古时期的纸带卡片，使用打孔来代表1，不打孔代表0，然后通过纸带机或卡片机来识别运行这种0，1程序。</p>
+<p>这种程序方便计算机运行，但是却是不容易让程序员进行编写的。</p>
+<p><strong>1.2 汇编语言简介</strong></p>
+<p>人们通过编写汇编指令，然后使用汇编编译器编译成机器语言。汇编语言比机器语言更容易阅读识别</p>
+<p>比如</p>
+<p>操作：寄存器BX的内容送到AX中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">1000100111011000              // 机器指令
+mov ax,bx                    // 汇编指令
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2-指令执行">2. 指令执行</h3>
+<p><strong>2.1 指令寻址</strong></p>
+<blockquote>
+<p>cs寄存器，ip寄存器</p>
+</blockquote>
+<p>每次从  [cs，ip] 取一条指令执行，执行后ip值增加，指向下一条指令</p>
+<p>CPU执行时，会一直的从内存单元中读取指令，坊到指令缓冲器执行。而取指令时，是根据CS寄存器和IP寄存器来获取一个地址
+[CS:IP]。这个地址指向内存单元中的代码段。CPU从中读取一条指令执行，然后IP指向下一条指令，继续读取执行。如此循环。
+[CS+IP]：CS=段地址,IP=偏移地址。CPU一直从[CS+IP]指向的内存单元处读取指令。</p>
+<p><strong>2.2 访问数据</strong>
+当CPU需要获取一个数据时，这时候代码段中能够获得的是DS寄存器和一个偏移地址。
+<code>[DS*0x10 + 偏移地址]</code>，指定地址时候可以不显示的写出DS。
+这个地址指向内存单元中的数据。CPU根据这个地址获取到需要的数据。
+基本地址：DS存储的是基本地址，但是在程序中段寄存器DS一般可以不显示说明。只用 <code>[偏移地址]</code> 来表示内存单元的地址。
+偏移地址：是一个常数，可以直接使用数字来表示，比如：<code>[553]</code>。也可以使用BX，BP，SI，DI（其他的寄存器不能表示内存地址）中的值来表示。比如<code>[BX]</code>。
+<code>[DS+BX]：DS=段地址,BX=偏移地址</code>，内存单元地址为<code>DS*0x10+BX</code>。计算其寻址能力根据可指定的内存范围大概为0-1M之间。</p>
+<p><strong>2.3 指令跳转</strong></p>
+<p>当CPU执行完一块内存中的代码段时，使用JMP命令来修改CS寄存器和IP寄存器的值。从而控制计算机指令执行的跳转。</p>
+<p>jmp：jmp指令转移就是修改cs，ip寄存器的指向。来完成跳转的功能。JMP导致[CS:IP]指向新的内存单元，CPU从新的内存单元读取指令。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">shawn</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-08-01
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/chap-1.6-%E6%B1%87%E7%BC%96%E7%BC%96%E8%AF%91%E5%99%A8/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">汇编编译器</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/chap-1.1-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/">
+            <span class="next-text nav-default">计算机启动过程</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://blog.shawn1024.fun/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>shawn</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

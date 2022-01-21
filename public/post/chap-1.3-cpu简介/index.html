@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>CPU简介 - 寒冰小站</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="shawn" /><meta name="description" content="CPU简介 [TOC] CPU的功能模块 CPU从逻辑上可以划分成3个模块，分别是控制单元、运算单元和存储单元，这三部分由CPU内部总线连接起来 控制单元：" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.92.0 with theme even" />
+
+
+<link rel="canonical" href="https://blog.shawn1024.fun/post/chap-1.3-cpu%E7%AE%80%E4%BB%8B/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="CPU简介" />
+<meta property="og:description" content="CPU简介 [TOC] CPU的功能模块 CPU从逻辑上可以划分成3个模块，分别是控制单元、运算单元和存储单元，这三部分由CPU内部总线连接起来 控制单元：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.shawn1024.fun/post/chap-1.3-cpu%E7%AE%80%E4%BB%8B/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-08-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-08-01T00:00:00+00:00" />
+
+<meta itemprop="name" content="CPU简介">
+<meta itemprop="description" content="CPU简介 [TOC] CPU的功能模块 CPU从逻辑上可以划分成3个模块，分别是控制单元、运算单元和存储单元，这三部分由CPU内部总线连接起来 控制单元："><meta itemprop="datePublished" content="2021-08-01T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-08-01T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2693">
+<meta itemprop="keywords" content="操作系统," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CPU简介"/>
+<meta name="twitter:description" content="CPU简介 [TOC] CPU的功能模块 CPU从逻辑上可以划分成3个模块，分别是控制单元、运算单元和存储单元，这三部分由CPU内部总线连接起来 控制单元："/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">寒冰小站</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">寒冰小站</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">CPU简介</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-08-01 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"> 操作系统 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#cpu简介">CPU简介</a>
+          <ul>
+            <li><a href="#cpu的功能模块">CPU的功能模块</a></li>
+          </ul>
+        </li>
+        <li><a href="#cpu总线">cpu总线</a></li>
+        <li><a href="#cpu寄存器">CPU寄存器</a>
+          <ul>
+            <li><a href="#16位cpu的寄存器组">16位cpu的寄存器组</a></li>
+            <li><a href="#32位cpu的寄存器组">32位cpu的寄存器组</a></li>
+            <li><a href="#64位cpu的寄存器组">64位cpu的寄存器组</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="cpu简介">CPU简介</h2>
+<p>[TOC]</p>
+<h3 id="cpu的功能模块">CPU的功能模块</h3>
+<p>CPU从逻辑上可以划分成3个模块，分别是控制单元、运算单元和存储单元，这三部分由CPU内部总线连接起来</p>
+<ol>
+<li>
+<p>控制单元：控制单元是整个CPU的指挥控制中心，由指令寄存器IR(Instruction Register)、指令译码器ID(Instruction Decoder)和操作控制器OC(Operation Controller)</p>
+</li>
+<li>
+<p>运算单元：是运算器的核心。可以执行算术运算(包括加减乘数等基本运算及其附加运算)和逻辑运算(包括移位、逻辑测试或两个值比较)。</p>
+</li>
+<li>
+<p>存储单元：包括CPU片内缓存和寄存器组，是CPU中暂时存放数据的地方</p>
+</li>
+</ol>
+<p>简单的描述下CPU是如何进行计算的。</p>
+<p>例如计算2个数的和：</p>
+<p>首先，CPU的控制器从内存读取两条MOV指令，执行指令将内存的值赋值到两个不同的寄存器中。</p>
+<p>然后。CPU的控制器从内存读取一条ADD指令，计算两个寄存器中数的和值。</p>
+<p>计算的结果保存在第三个寄存器中，并将此寄存器的结果返回到内存中。</p>
+<h2 id="cpu总线">cpu总线</h2>
+<ol>
+<li>地址总线</li>
+</ol>
+<p>CPU是通过地址总线来进行内存地址寻址的。8086cpu有20根地址总线,可以访问 1M (1&laquo;20 )的内存空间。</p>
+<p>CPU地址总线的位数决定了CPU的寻址能力。</p>
+<ol start="2">
+<li>数据总线</li>
+</ol>
+<p>CPU通过数据总线来进行内存和其他器件之间的数据传递。8086有16根数据总线，每次可以读写16位数据。</p>
+<p>数据总线的宽度决定了CPU和外界的数据传输速度。</p>
+<ol start="3">
+<li>控制总线</li>
+</ol>
+<p>CPU通过控制总线发出各种控制命令，用来操作外部设备。</p>
+<h2 id="cpu寄存器">CPU寄存器</h2>
+<p>说明：关于CPU寄存器的话，网上很多资料。这边只是做一个总结。</p>
+<p><a href="http://zh.wikipedia.org/wiki/%E5%AF%84%E5%AD%98%E5%99%A8">http://zh.wikipedia.org/wiki/%E5%AF%84%E5%AD%98%E5%99%A8</a></p>
+<p>要编写操作系统，首先要熟悉CPU的结构，这样才能控制CPU完成自己想要的操作。CPU是由很多个寄存器构成的，通过汇编语言操作寄存器的数据，从而进行CPU的执行和运算。</p>
+<p>CPU寄存器组可以分为通用寄存器组，段寄存器组，指令指针寄存器 和 标志寄存器。</p>
+<p><img src="images/1.3.1.png" alt="1.3.1.png)"></p>
+<h3 id="16位cpu的寄存器组">16位cpu的寄存器组</h3>
+<p>8086 有14个16位寄存器，这14个寄存器按其用途可分为(1)通用寄存器-包括数据寄存器和指针寄存器、(2)指令指针寄存器、(3)标志寄存器和(4)段寄存器等4类。</p>
+<h4 id="cpu数存器组">CPU数存器组:</h4>
+<p>总共4个数据寄存器，2个指针寄存器以及2个变址寄存器，如下：</p>
+<ul>
+<li>4个数据寄存器(AX、BX、CX和DX)</li>
+<li>2个指针寄存器(SP和BP)</li>
+<li>2个变址寄存器(SI和DI)</li>
+</ul>
+<p><strong>通用寄存器</strong></p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>所属寄存器组</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AX</td>
+<td>数据寄存器(accumulator)</td>
+<td>累加寄存器 <br/>1.作为数据寄存器 <br/>2.累加器可用于乘、除、输入/输出等操作</td>
+</tr>
+<tr>
+<td>BX</td>
+<td>数据寄存器(base)</td>
+<td>基址寄存器。<br/>1.作为数据寄存器 <br/> 2.可作为基址寄存器来使用，配合段寄存器寻址</td>
+</tr>
+<tr>
+<td>CX</td>
+<td>数据寄存器(count)</td>
+<td>1. 计数寄存器:在循环和字符串操作时，要用它来控制循环次数<br/>2.位移寄存器:在位操作中，当移多位时，要用CL来指明移位的位数</td>
+</tr>
+<tr>
+<td>DX</td>
+<td>数据寄存器(data)</td>
+<td>1.在进行乘、除运算时，它可作为默认的操作数参与运算 <br/>2.用于存放I/O的端口地址</td>
+</tr>
+</tbody>
+</table>
+<p>通用寄存器: AX，BX，CX，DX</p>
+<p>大小为16位又可再拆分高低位使用，大小为8位：AH，AL，BH，BL，CH，CL，DH，DL。</p>
+<table>
+<thead>
+<tr>
+<th>寄存器（16位）</th>
+<th>AX</th>
+<th>BX</th>
+<th>CX</th>
+<th>DX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>高位（8位）</td>
+<td>AH</td>
+<td>BH</td>
+<td>CH</td>
+<td>DH</td>
+</tr>
+<tr>
+<td>低位（8位）</td>
+<td>AL</td>
+<td>BL</td>
+<td>CL</td>
+<td>DL</td>
+</tr>
+</tbody>
+</table>
+<p><strong>1. 累加寄存器     AX</strong>		-accumulator,累加寄存器。</p>
+<blockquote>
+<p>作用：累加器可用于乘、除、输入/输出等操作，它们的使用频率很高</p>
+</blockquote>
+<p><strong>2. 基址寄存器     BX</strong>		-base 基址寄存器。存储器指针</p>
+<blockquote>
+<p>作用：它可作为存储器指针来使用；</p>
+</blockquote>
+<p><strong>3. 计数寄存器     CX</strong>		-counter，计数寄存器。串操作，循环操作计数寄存器，其中的CL低位为移位操作计数器</p>
+<blockquote>
+<p>作用：在循环和字符串操作时，要用它来控制循环次数；在位操作中，当移多位时，要用CL来指明移位的位数</p>
+</blockquote>
+<p><strong>4. 数据寄存器     DX</strong>		-data，数据寄存器。乘除运算</p>
+<blockquote>
+<p>作用：在进行乘、除运算时，它可作为默认的操作数参与运算，也可用于存放I/O的端口地址</p>
+</blockquote>
+<p><strong>指针寄存器（16位）</strong></p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>所属寄存器组</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SI</td>
+<td>变址寄存器(source index)</td>
+<td>源变址寄存器</td>
+</tr>
+<tr>
+<td>DI</td>
+<td>变址寄存器(destination index)</td>
+<td>目标变址寄存器</td>
+</tr>
+<tr>
+<td>&mdash;</td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+</tr>
+<tr>
+<td>SP</td>
+<td>栈指针寄存器(stack pointer)</td>
+<td>栈指针寄存器</td>
+</tr>
+<tr>
+<td>BP</td>
+<td>基数指针寄存器(base pointer)</td>
+<td>基址指针寄存器</td>
+</tr>
+</tbody>
+</table>
+<p><strong>指令指针寄存器</strong>（16位）</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>所属寄存器组</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IP</td>
+<td>指令指针寄存器</td>
+<td>指向当前需要取出的指令字节。IP指向的是指令地址的段内地址偏移量</td>
+</tr>
+</tbody>
+</table>
+<p><strong>段寄存器组（16位）</strong></p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>所属寄存器组</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CS</td>
+<td>代码段寄存器(code segment)</td>
+<td>用于代码段内存位置寻址</td>
+</tr>
+<tr>
+<td>DS</td>
+<td>数据段寄存器(data segment )</td>
+<td>用于数据段内存位置寻址</td>
+</tr>
+<tr>
+<td>SS</td>
+<td>栈段寄存器(stack segment)</td>
+<td>用于堆栈内存位置寻址</td>
+</tr>
+<tr>
+<td>ES</td>
+<td>附加段寄存器(extra segment)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>5. 标志寄存器（每个标志占一位）FLAGS</strong></p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>所属寄存器组</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR</td>
+<td>标志寄存器(Flags Register)</td>
+<td>存放条件标志、控制标志寄存器</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32位cpu的寄存器组">32位cpu的寄存器组</h3>
+<h4 id="cpu数存器组-1">CPU数存器组:</h4>
+<p>后来出现的32位处理器在16位的基础上延伸到32位：</p>
+<p>总共有4个32位的数据寄存器EAX、EBX、ECX和EDX。而这4个32位寄存器的低位和原先16位的一样，命名为：AX、BX、CX和DX。
+2个指针寄存器，名称为ESP和EBP，
+2个变址寄存器，名称为ESI和EDI。</p>
+<p><strong>1. 通用寄存器组（32位）</strong></p>
+<table>
+<thead>
+<tr>
+<th>★名称</th>
+<th>★作用</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>位数</td>
+<td>32位</td>
+<td>16位</td>
+<td>8位（高）</td>
+<td>8位（低）</td>
+</tr>
+<tr>
+<td><strong>通用寄存器组</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>累加寄存器</td>
+<td>eax</td>
+<td>ax</td>
+<td>ah</td>
+<td>al</td>
+</tr>
+<tr>
+<td>基址寄存器</td>
+<td>ebx</td>
+<td>bx</td>
+<td>bh</td>
+<td>bl</td>
+</tr>
+<tr>
+<td>计数寄存器</td>
+<td>ecx</td>
+<td>cx</td>
+<td>ch</td>
+<td>cl</td>
+</tr>
+<tr>
+<td></td>
+<td>edx</td>
+<td>dx</td>
+<td>dh</td>
+<td>dl</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>指针寄存器组</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>源变址寄存器</td>
+<td>esi</td>
+<td>si</td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+</tr>
+<tr>
+<td>目标变址寄存器</td>
+<td>edi</td>
+<td>di</td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+</tr>
+<tr>
+<td>指针寄存器组</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>栈寄存器组</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>栈指针寄存器</td>
+<td>esp</td>
+<td>sp</td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+</tr>
+<tr>
+<td>基址指针寄存器</td>
+<td>ebp</td>
+<td>bp</td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>指令指针寄存器</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>指令指针寄存器</td>
+<td>eip</td>
+<td>ip</td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>段寄存器组</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>代码段寄存器</td>
+<td>cs</td>
+<td></td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+</tr>
+<tr>
+<td>数据段寄存器</td>
+<td>ds</td>
+<td></td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+</tr>
+<tr>
+<td>栈段寄存器</td>
+<td>ss</td>
+<td></td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+</tr>
+<tr>
+<td>附加段寄存器</td>
+<td>es</td>
+<td></td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+</tr>
+<tr>
+<td>附加段寄存器</td>
+<td>fs</td>
+<td></td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+</tr>
+<tr>
+<td>附加段寄存器</td>
+<td>gs</td>
+<td></td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>标志寄存器</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>标志寄存器</td>
+<td>cflags</td>
+<td></td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="64位cpu的寄存器组">64位cpu的寄存器组</h3>
+<h4 id="cpu数存器组-2">CPU数存器组:</h4>
+<p><strong>1. 通用寄存器组（64位）</strong></p>
+<table>
+<thead>
+<tr>
+<th>★名称</th>
+<th>所属寄存器组</th>
+<th>★作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RAX</td>
+<td>数据寄存器(accumulator)</td>
+<td>累加寄存器，1.作为数据寄存器 <br/>2.累加器可用于乘、除、输入/输出等操作</td>
+</tr>
+<tr>
+<td>RBX</td>
+<td>数据寄存器(base)</td>
+<td>基址寄存器。1.作为数据寄存器 <br/> 2.可作为基址寄存器来使用，配合段寄存器寻址</td>
+</tr>
+<tr>
+<td>RCX</td>
+<td>数据寄存器(count)</td>
+<td>1. 计数寄存器:在循环和字符串操作时，要用它来控制循环次数<br/>2.位移寄存器:在位操作中，当移多位时，要用CL来指明移位的位数</td>
+</tr>
+<tr>
+<td>RDX</td>
+<td>数据寄存器(data)</td>
+<td>1.在进行乘、除运算时，它可作为默认的操作数参与运算 <br/>2.用于存放I/O的端口地址</td>
+</tr>
+</tbody>
+</table>
+<p><strong>2. 指针寄存器（64位）</strong></p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>所属寄存器组</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RSP</td>
+<td>栈指针寄存器(stack pointer)</td>
+<td>栈指针寄存器</td>
+</tr>
+<tr>
+<td>RBP</td>
+<td>基数指针寄存器(base pointer)</td>
+<td>基址指针寄存器</td>
+</tr>
+<tr>
+<td>&mdash;</td>
+<td>&mdash;</td>
+<td>&mdash;</td>
+</tr>
+<tr>
+<td>RSI</td>
+<td>变址寄存器(source index)</td>
+<td>源变址寄存器</td>
+</tr>
+<tr>
+<td>RDI</td>
+<td>变址寄存器(destination index)</td>
+<td>目标变址寄存器</td>
+</tr>
+</tbody>
+</table>
+<p><strong>3. 指令指针寄存器（64位)</strong></p>
+<p>在原先的基础上增加到32位：指令指针寄存器名称为：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>所属寄存器组</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RIP</td>
+<td>指令指针寄存器</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>还新增了8个64位的寄存器:
+R8 R9 R10 R11 R12 R13 R14 R15</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">shawn</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-08-01
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/chap-1.0-%E6%A6%82%E8%BF%B0/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">概述</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/chap-1.2-%E4%B8%BB%E5%BC%95%E5%AF%BC%E6%89%87%E5%8C%BA/">
+            <span class="next-text nav-default">主引导扇区</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://blog.shawn1024.fun/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>shawn</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
