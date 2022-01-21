@@ -2,33 +2,81 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on 寒冰小站</title>
-    <link>https://shawn102400.github.io/post/</link>
+    <link>https://blog.shawn1024.fun/post/</link>
     <description>Recent content in Posts on 寒冰小站</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 24 Dec 2020 00:00:23 +0800</lastBuildDate><atom:link href="https://shawn102400.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 01 Aug 2021 12:51:45 +0800</lastBuildDate><atom:link href="https://blog.shawn1024.fun/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>面试</title>
-      <link>https://shawn102400.github.io/post/%E9%9D%A2%E8%AF%95/</link>
-      <pubDate>Thu, 24 Dec 2020 00:00:23 +0800</pubDate>
+      <title>概述</title>
+      <link>https://blog.shawn1024.fun/post/chap-1.0-%E6%A6%82%E8%BF%B0/</link>
+      <pubDate>Sun, 01 Aug 2021 12:51:45 +0800</pubDate>
       
-      <guid>https://shawn102400.github.io/post/%E9%9D%A2%E8%AF%95/</guid>
-      <description>基础 123214 </description>
+      <guid>https://blog.shawn1024.fun/post/chap-1.0-%E6%A6%82%E8%BF%B0/</guid>
+      <description>相关资料： 汇编 原理 1 深入理解计算机系统 实现 1 操作系统真相还原 2 x86汇编语言-从实模式到保护模式 2 30天自制操作系统 3 Orange&amp;rsqu</description>
     </item>
     
     <item>
-      <title>名人语句</title>
-      <link>https://shawn102400.github.io/post/%E5%90%8D%E4%BA%BA%E8%AF%AD%E5%8F%A5/</link>
-      <pubDate>Wed, 23 Dec 2020 00:47:23 +0800</pubDate>
+      <title>CPU简介</title>
+      <link>https://blog.shawn1024.fun/post/chap-1.3-cpu%E7%AE%80%E4%BB%8B/</link>
+      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://shawn102400.github.io/post/%E5%90%8D%E4%BA%BA%E8%AF%AD%E5%8F%A5/</guid>
-      <description>如果一个女孩肯用吃饭的钱化妆，就一定有一个男人请她吃饭。 ——希特勒
-在这个世界上，判断一个男人有两种方法：一是看他娶什么样的女人；二是看他怎么个死法。 ——希特勒
-竞争乃万物之本。人类并不是依靠人性原则生存，而是依靠最野蛮的竞争生存！ ——希特勒
-战争已经变成一种神秘的科学，令人高深莫测。但是战争其实是一个极自然的东西，也是日常生活中最必要的东西……战争就是生活。——希特勒
-所有的宣传一定要通俗易懂，连最愚蠢的智力水平最低的人都能够直接理解。人们可以被操纵成把天堂看作地狱，反过来，也可以把最悲惨的生活看作天堂。	——希特勒
-中国有这么一群人，本身生活在社会的底层，自身权利每天都在受到侵害，却具有统治阶层的意识，处处为统治阶级辩护，就是动物界也找不到如此低智的人。 —— 林语堂
-如果天空总是黑暗的，那就摸黑生存；如果发出声音是危险的，那就保持沉默；如果自觉无力发光，那就蜷伏于墙角。 但不要习惯了黑暗就为黑暗辩护；也不要为自己的苟且而得意；不要嘲讽那些比自己更勇敢的人们。我们可以卑微如尘土，但不可扭曲如蛆虫。—— 曼德拉</description>
+      <guid>https://blog.shawn1024.fun/post/chap-1.3-cpu%E7%AE%80%E4%BB%8B/</guid>
+      <description>CPU简介 [TOC] CPU的功能模块 CPU从逻辑上可以划分成3个模块，分别是控制单元、运算单元和存储单元，这三部分由CPU内部总线连接起来 控制单元：</description>
+    </item>
+    
+    <item>
+      <title>主引导扇区</title>
+      <link>https://blog.shawn1024.fun/post/chap-1.2-%E4%B8%BB%E5%BC%95%E5%AF%BC%E6%89%87%E5%8C%BA/</link>
+      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap-1.2-%E4%B8%BB%E5%BC%95%E5%AF%BC%E6%89%87%E5%8C%BA/</guid>
+      <description>主引导扇区 [TOC] 工具 首先，需要的工具软件列表： ubuntu19：https://ubuntu.com/download nasm编译器：https</description>
+    </item>
+    
+    <item>
+      <title>二进制文件</title>
+      <link>https://blog.shawn1024.fun/post/chap-1.7-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap-1.7-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/</guid>
+      <description>二进制文件 [TOC] 所需工具 所需工具 操作系统：Linux : Ubuntu18:http://releases.ubuntu.com/18.04/ 汇编编译器：nasm: https://www.nasm.us/ 虚拟机：vitualbox: [https://www.virtualbox.org/wiki/Linux_Downloads ] 文本编辑器： vscode: https://code.visualstudio.com/ 插件：hexdu</description>
+    </item>
+    
+    <item>
+      <title>汇编指令</title>
+      <link>https://blog.shawn1024.fun/post/chap-1.5-%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4/</link>
+      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap-1.5-%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4/</guid>
+      <description>汇编指令 1. 赋值操作 mov mov ax, 0x1 1）将值赋给寄存器：mov 寄存器,寄存器|内存单元|立即数 1 2 3 mov ax,0x0018H ;ax = 0x0018H mov ax,[0x0c200H] ;ax = [ds:0x0c200H] mov ax,bx ;ax = bx 1）将值赋给内存单元</description>
+    </item>
+    
+    <item>
+      <title>汇编编译器</title>
+      <link>https://blog.shawn1024.fun/post/chap-1.6-%E6%B1%87%E7%BC%96%E7%BC%96%E8%AF%91%E5%99%A8/</link>
+      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap-1.6-%E6%B1%87%E7%BC%96%E7%BC%96%E8%AF%91%E5%99%A8/</guid>
+      <description>汇编编译器 [TOC] 常见的汇编编译器 汇编语言目前主要有2种风格式 intel风格：intel风格 AT&amp;amp;T风格：多数在linux系统上使用。 汇编</description>
+    </item>
+    
+    <item>
+      <title>汇编语言</title>
+      <link>https://blog.shawn1024.fun/post/chap-1.4-%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/</link>
+      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap-1.4-%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/</guid>
+      <description>汇编语言 1. 机器语言与汇编语言 1.1 机器语言简介 对于计算机来说，能识别的只有0,1两个数字。最早的时候，程序员就是用0，1这2个符号来进行编码，不</description>
+    </item>
+    
+    <item>
+      <title>计算机启动过程</title>
+      <link>https://blog.shawn1024.fun/post/chap-1.1-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap-1.1-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/</guid>
+      <description>计算机启动过程 1 计算机启动过程 1.1 加电自检 计算器通电后，首先加载执行BIOS代码，由BIOS对系统硬件执行自检查。 通常完整的POST自检将包括</description>
     </item>
     
   </channel>
