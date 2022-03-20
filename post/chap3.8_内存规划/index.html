@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>3.8_加载器 - 寒冰小站</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="寒冰" /><meta name="description" content="加载器 引导的第三阶段 第一次加载文件，引导扇区，系统的入口 第二次加载文件，loader文件，负责从16位实模式进入32位保护模式 第三次加载文件" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.92.0 with theme even" />
+
+
+<link rel="canonical" href="https://blog.shawn1024.fun/post/chap3.8_%E5%86%85%E5%AD%98%E8%A7%84%E5%88%92/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="3.8_加载器" />
+<meta property="og:description" content="加载器 引导的第三阶段 第一次加载文件，引导扇区，系统的入口 第二次加载文件，loader文件，负责从16位实模式进入32位保护模式 第三次加载文件" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.shawn1024.fun/post/chap3.8_%E5%86%85%E5%AD%98%E8%A7%84%E5%88%92/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-01-14T11:27:28+00:00" />
+<meta property="article:modified_time" content="2019-01-14T00:00:00+00:00" />
+
+<meta itemprop="name" content="3.8_加载器">
+<meta itemprop="description" content="加载器 引导的第三阶段 第一次加载文件，引导扇区，系统的入口 第二次加载文件，loader文件，负责从16位实模式进入32位保护模式 第三次加载文件"><meta itemprop="datePublished" content="2019-01-14T11:27:28+00:00" />
+<meta itemprop="dateModified" content="2019-01-14T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1435">
+<meta itemprop="keywords" content="操作系统," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="3.8_加载器"/>
+<meta name="twitter:description" content="加载器 引导的第三阶段 第一次加载文件，引导扇区，系统的入口 第二次加载文件，loader文件，负责从16位实模式进入32位保护模式 第三次加载文件"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">寒冰小站</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">寒冰小站</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">3.8_加载器</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019/01/14 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"> 操作系统 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#加载器">加载器</a>
+      <ul>
+        <li><a href="#引导的第三阶段">引导的第三阶段</a></li>
+        <li><a href="#读取加载器">读取加载器</a>
+          <ul>
+            <li><a href="#1-loader文件的位置">1. loader文件的位置</a></li>
+          </ul>
+        </li>
+        <li><a href="#内存分配">内存分配</a></li>
+        <li><a href="#分页模式">分页模式</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="加载器">加载器</h1>
+<h2 id="引导的第三阶段">引导的第三阶段</h2>
+<ol>
+<li>第一次加载文件，引导扇区，系统的入口</li>
+<li>第二次加载文件，loader文件，负责从16位实模式进入32位保护模式</li>
+<li>第三次加载文件，进入C语言实现，运行在32位系统下。</li>
+</ol>
+<p>按照正常的逻辑，BIOS载入执行引导扇区后，主引导记录就应该去查询并执行内核文件了。</p>
+<p>但是存在着下面几个问题：</p>
+<ol>
+<li>
+<p>没有文件系统，就算磁盘有内核的内容，引导代码也不知道应该从哪里加载内核内容执行。</p>
+</li>
+<li>
+<p>主引导记录只有512KB，没有办法做更多的操作</p>
+</li>
+</ol>
+<p>因此需要二阶段的引导，流程如下：</p>
+<p>主引导记录继续加载执行一段第二阶段引导程序，而这段内容可能占据几个扇区。</p>
+<p>第二阶引导程序会构建文件系统，然后根据文件系统查找和执行内核。</p>
+<p>第二阶引导程序我们称之为loader。加载器。</p>
+<h2 id="读取加载器">读取加载器</h2>
+<p>磁盘的1扇区为mbr扇区 ，我们规定其后面2-6扇区为loader内容的扇区。流程如下：</p>
+<p>BIOS加载执行引导扇区。</p>
+<p>引导扇区访问磁盘，并读取磁盘的2-6扇区。</p>
+<p>复制磁盘的2-6扇区到内存的0x90000位置，并执行。</p>
+<h3 id="1-loader文件的位置">1. loader文件的位置</h3>
+<p>1）内存分配</p>
+<p>在boot引导完成后，当前系统的内存分配如下：</p>
+<p>内存 0x7c00-0x7dff ：引导扇区</p>
+<p>内存 0x8000-N      : 读取的磁盘内容 ( 其中的 0xc200-0xc3ff 是loader文件)</p>
+<p>2）loader在内存的位置</p>
+<p>在前面的引导程序里面已经将磁盘的10个柱面加载到了内存单元的0x8000处。而在ima文件中程序的起始位置（也就是引导扇区）在磁盘中的位置是 0x4200。</p>
+<p>同样在内存也是从 0x8000 往后的 0x4200 位置。</p>
+<p>所以loader的内容在内存单元的开始位置为：0x8000+0x4200=0xc200位置。</p>
+<p>说明：</p>
+<p>整个磁盘文件包括引导扇区512+磁盘文件sys。loader在sys文件的0x4200位置，引导扇区在此之后。</p>
+<p>因此磁盘文件复制到内存0x8000处，所以得出loader的位置需要0x8000+0x4200所以得出0xc200这个位置。</p>
+<p>但是其实0x4200之前是没什么用的。因此将磁盘引导区原本在磁盘的位置靠后现在给提前了，复制到了8000-81ff的位置，单独放了一块。</p>
+<p>这个和真实磁盘文件放置不同（前后问题），慢慢理解。</p>
+<p>loader1.asm</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">;RatsOS
+;TAB=4
+
+%include &#34;boot/boot.inc&#34;
+
+[bits 32]
+
+    org 0x9800
+
+    jmp Entry
+
+;程序核心内容
+Entry:
+	;显存段地址
+	mov byte [gs:0x00],&#39;h&#39;      ;输出字符
+	mov byte [gs:0x01],0x17     ;设置颜色(背景色蓝，前景色白)
+	mov byte [gs:0x02],&#39;e&#39;
+	mov byte [gs:0x03],0x17
+	mov byte [gs:0x04],&#39;l&#39;
+	mov byte [gs:0x05],0x17
+	mov byte [gs:0x06],&#39;l&#39;
+	mov byte [gs:0x07],0x17
+	mov byte [gs:0x08],&#39;o&#39;
+	mov byte [gs:0x09],0x17
+	mov byte [gs:0x0a],&#39;,&#39;
+	mov byte [gs:0x0b],0x17
+	mov byte [gs:0x0c],&#39;l&#39;
+	mov byte [gs:0x0d],0x17
+	mov byte [gs:0x0e],&#39;o&#39;
+	mov byte [gs:0x0f],0x17
+	mov byte [gs:0x10],&#39;a&#39;
+	mov byte [gs:0x11],0x17
+	mov byte [gs:0x12],&#39;d&#39;
+	mov byte [gs:0x13],0x17
+	mov byte [gs:0x14],&#39;e&#39;
+	mov byte [gs:0x15],0x17
+	mov byte [gs:0x16],&#39;r&#39;
+	mov byte [gs:0x17],0x17
+	mov byte [gs:0x18],&#39;1&#39;
+	mov byte [gs:0x19],0x17
+
+
+	jmp $                     	;让CPU挂起，等待指令。
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="内存分配">内存分配</h2>
+<p>磁盘分布图</p>
+<table>
+<thead>
+<tr>
+<th>磁盘区域</th>
+<th>数据内容</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x0000 - 0x0200 （1个扇区）</td>
+<td>boot.bin</td>
+<td>引导扇区</td>
+</tr>
+<tr>
+<td>0x0200 - 0x0A00（4个扇区）</td>
+<td>loader.bin</td>
+<td></td>
+</tr>
+<tr>
+<td>0x0A00 - 0x1400（25个扇区）</td>
+<td>head.bin</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>实模式内存分布图</strong></p>
+<table>
+<thead>
+<tr>
+<th>内存区域</th>
+<th>大小</th>
+<th>数据内容</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x0000 - 0x03FF</td>
+<td>1K</td>
+<td></td>
+<td>中断向量表</td>
+</tr>
+<tr>
+<td>0x0400 - 0x04FF</td>
+<td>256B</td>
+<td></td>
+<td>BIOS数据区</td>
+</tr>
+<tr>
+<td>0x7C00 - 0x7DFF</td>
+<td>512B</td>
+<td>boot.bin</td>
+<td>引导扇区的内存地址</td>
+</tr>
+<tr>
+<td>0x9200 - 0x99FF</td>
+<td>2048B</td>
+<td>loader.bin</td>
+<td></td>
+</tr>
+<tr>
+<td>0x9A00 - 0xc200</td>
+<td>10240B</td>
+<td>loader1.bin</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0x70000 - 0x709FF</td>
+<td></td>
+<td>loader1.bin映像</td>
+<td></td>
+</tr>
+<tr>
+<td>0x90000 - 0x92FFF</td>
+<td></td>
+<td>系统参数信息表</td>
+<td></td>
+</tr>
+<tr>
+<td>0x9FC00 - 0x9FFFF</td>
+<td>1K</td>
+<td></td>
+<td>扩展BISO数据区域</td>
+</tr>
+<tr>
+<td>0xB8000 - 0xB8FFFF</td>
+<td></td>
+<td></td>
+<td>显存地址(默认)</td>
+</tr>
+<tr>
+<td>0xA00000 - 0xAFFFFF</td>
+<td></td>
+<td></td>
+<td>显存地址64KB(图形模式)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>保护模式</strong></p>
+<table>
+<thead>
+<tr>
+<th>内存区域</th>
+<th>大小</th>
+<th>数据内容</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x8000 - 0x87FF</td>
+<td>2048B</td>
+<td>系统信息</td>
+<td></td>
+</tr>
+<tr>
+<td>0x9000 - 0x97FF</td>
+<td>2048B</td>
+<td>loader.bin</td>
+<td>loader内存位置</td>
+</tr>
+<tr>
+<td>0x9800 - 0xBFFF</td>
+<td>10KB</td>
+<td>kernel.bin</td>
+<td>kernel内存位置</td>
+</tr>
+<tr>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+<td>&hellip;</td>
+</tr>
+<tr>
+<td>0xB8000 - 0xB8FFFF</td>
+<td></td>
+<td></td>
+<td>显存地址(默认)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="分页模式">分页模式</h2>
+<table>
+<thead>
+<tr>
+<th>内存区域</th>
+<th>大小</th>
+<th>数据内容</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x0000 - 0xffff</td>
+<td></td>
+<td></td>
+<td>loader内存位置</td>
+</tr>
+<tr>
+<td>0xffff  - 0xBFFF</td>
+<td></td>
+<td>GDT表</td>
+<td>kernel内存位置</td>
+</tr>
+</tbody>
+</table>
+<p><strong>## GDT信息</strong></p>
+<table>
+<thead>
+<tr>
+<th>GDT</th>
+<th>段类型</th>
+<th>基本地址</th>
+<th>限制</th>
+<th>属性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GDT[0x00]</td>
+<td>Data segment</td>
+<td>base=0x00000000</td>
+<td>limit=0xffffffff</td>
+<td>Read/Write</td>
+</tr>
+<tr>
+<td>GDT[0x01]</td>
+<td>Code segment</td>
+<td>base=0x00280000</td>
+<td>limit=0x0007ffff</td>
+<td>Execute/Read</td>
+</tr>
+</tbody>
+</table>
+<p>系统参数信息表</p>
+<table>
+<thead>
+<tr>
+<th>内存地址</th>
+<th>字节偏移量</th>
+<th>说明</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x90000</td>
+<td>2</td>
+<td>内存ards个数</td>
+<td>&mdash;</td>
+<td></td>
+</tr>
+<tr>
+<td>0x92000</td>
+<td>2</td>
+<td>内存ards个数</td>
+<td>&mdash;</td>
+<td></td>
+</tr>
+<tr>
+<td>0x92002</td>
+<td>200</td>
+<td>ards表</td>
+<td>&mdash;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">寒冰</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019/01/14
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/chap4.1_elf%E6%96%87%E4%BB%B6/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">4.1_ELF文件</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/chap3.7_c%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F/">
+            <span class="next-text nav-default">3.7_C语言程序</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://blog.shawn1024.fun/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2012 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>寒冰</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

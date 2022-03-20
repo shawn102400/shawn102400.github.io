@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>2.5_磁盘 - 寒冰小站</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="寒冰" /><meta name="description" content="磁盘 软盘和硬盘 目前主流的硬盘分为两种： 机械硬盘 固态硬盘 硬盘最早分为两种接口方式： 并行接口（PATA），目前已经淘汰。 串行接口（SATA）。 磁" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.92.0 with theme even" />
+
+
+<link rel="canonical" href="https://blog.shawn1024.fun/post/chap2.5_%E7%A3%81%E7%9B%98/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="2.5_磁盘" />
+<meta property="og:description" content="磁盘 软盘和硬盘 目前主流的硬盘分为两种： 机械硬盘 固态硬盘 硬盘最早分为两种接口方式： 并行接口（PATA），目前已经淘汰。 串行接口（SATA）。 磁" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.shawn1024.fun/post/chap2.5_%E7%A3%81%E7%9B%98/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-11-10T11:27:28+00:00" />
+<meta property="article:modified_time" content="2018-11-10T00:00:00+00:00" />
+
+<meta itemprop="name" content="2.5_磁盘">
+<meta itemprop="description" content="磁盘 软盘和硬盘 目前主流的硬盘分为两种： 机械硬盘 固态硬盘 硬盘最早分为两种接口方式： 并行接口（PATA），目前已经淘汰。 串行接口（SATA）。 磁"><meta itemprop="datePublished" content="2018-11-10T11:27:28+00:00" />
+<meta itemprop="dateModified" content="2018-11-10T00:00:00+00:00" />
+<meta itemprop="wordCount" content="976">
+<meta itemprop="keywords" content="操作系统," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="2.5_磁盘"/>
+<meta name="twitter:description" content="磁盘 软盘和硬盘 目前主流的硬盘分为两种： 机械硬盘 固态硬盘 硬盘最早分为两种接口方式： 并行接口（PATA），目前已经淘汰。 串行接口（SATA）。 磁"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">寒冰小站</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">寒冰小站</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">2.5_磁盘</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018/11/10 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"> 操作系统 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#磁盘">磁盘</a>
+          <ul>
+            <li><a href="#软盘和硬盘">软盘和硬盘</a></li>
+            <li><a href="#磁盘寻址chs方式">磁盘寻址：CHS方式</a></li>
+            <li><a href="#磁盘寻址lba方式">磁盘寻址：LBA方式</a></li>
+            <li><a href="#chs和lba的转换">CHS和LBA的转换</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="磁盘">磁盘</h2>
+<h3 id="软盘和硬盘">软盘和硬盘</h3>
+<p>目前主流的硬盘分为两种：</p>
+<ul>
+<li>
+<p>机械硬盘</p>
+</li>
+<li>
+<p>固态硬盘</p>
+</li>
+</ul>
+<p>硬盘最早分为两种接口方式：</p>
+<ul>
+<li>
+<p>并行接口（PATA），目前已经淘汰。</p>
+</li>
+<li>
+<p>串行接口（SATA）。</p>
+</li>
+</ul>
+<h3 id="磁盘寻址chs方式">磁盘寻址：CHS方式</h3>
+<p>磁盘的三层定位结构分别为</p>
+<ul>
+<li>柱面(Cylinder)</li>
+<li>磁头(Head)</li>
+<li>扇区(Sector)</li>
+</ul>
+<p>磁盘寻址，是指根据给出的方式找到扇区的位置。</p>
+<p>按顺序根据柱面，磁头，扇区，这种方式称之为CHS方式。</p>
+<p>例如: 磁盘的第一个扇区，位于 1柱面，1磁头，0扇区</p>
+<p><strong>CHS方式表示的容量上限</strong></p>
+<p>这种模式及下，支持的最大柱面数为1024，最大磁头数为16，最大扇区数为63，（每个扇区字节数为512Bit）因此最大访问硬盘容量为：</p>
+<blockquote>
+<p>1024 x 16 x 64 x 512 = 528MB</p>
+</blockquote>
+<p>虽然后面又拓展了large模式读取，但是没有解决根本问题。</p>
+<p>所以后来有LBA的读取方式，可以描述更大容量。</p>
+<h3 id="磁盘寻址lba方式">磁盘寻址：LBA方式</h3>
+<p>LBA方式不考虑扇区的物理位置，而是根据逻辑位置来寻址的。</p>
+<p>LBA方式不使用<code>柱面-磁头-扇区</code>方式定位，直接以从0开始，逐次递增的方式来定位逻辑扇区。</p>
+<p>比如： 扇区0，扇区1，&hellip;.</p>
+<p><strong>LAB寄存器</strong></p>
+<p>LAB使用硬盘控制器存储扇区定位信息。每个寄存器8位大小。</p>
+<ul>
+<li>
+<p>device寄存器:</p>
+</li>
+<li>
+<p>LBA low寄存器</p>
+</li>
+<li>
+<p>LBA mid寄存器</p>
+</li>
+<li>
+<p>LBA high寄存器</p>
+</li>
+</ul>
+<p>例如LAB28，使用一个28位来表示扇区位置。</p>
+<blockquote>
+<p>LAB28扇区地址 = device寄存器的低4位 + LBA high寄存器 + LBA mid寄存器 + LBA low寄存器</p>
+</blockquote>
+<p><strong>LAB28 和 LAB48</strong></p>
+<p>IO操作读取硬盘的三种寻址方式：</p>
+<ul>
+<li>chs寻址方式 ：小于8G (8064MB)</li>
+<li>LBA28寻址方式：小于137GB</li>
+<li>LBA48寻址方式：小于144,000,000 GB</li>
+</ul>
+<h3 id="chs和lba的转换">CHS和LBA的转换</h3>
+<p>CHS地址可用以下公式转成LBA,</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">LBA = (C * H + H) * S + S - 1     
+</code></pre></td></tr></table>
+</div>
+</div><p>LBA可用以下公式对应到CHS:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">C = LBA / (SPT * HPC)
+H = (LBA / SPT ) % HPC
+S = (LBA % SPT ) + 1 
+</code></pre></td></tr></table>
+</div>
+</div><p>C =  cylinder : 磁柱编号
+H =  head:  磁头编号
+S  =  sector:  扇区编号
+HPC=heads per cylinder，每个磁柱的磁头数
+SPT=sectors per track，每磁道的扇区数</p>
+<p>功能08H 功能描述：读取驱动器参数 入口参数：</p>
+<p>AH＝08H</p>
+<p>DL＝驱动器，00H~7FH：软盘；80H~0FFH：硬盘</p>
+<p>出口参数：</p>
+<p>CF＝1——操作失败，</p>
+<p>AH＝状态代码，参见功能号01H中的说明，否则， BL＝01H — 360K ＝02H — 1.2M ＝03H — 720K ＝04H — 1.44M</p>
+<p>CH＝柱面数的低8位</p>
+<p>CL的位7-6＝柱面数的该2位</p>
+<p>CL的位5-0＝扇区数</p>
+<p>DH＝磁头数</p>
+<p>DL＝驱动器数</p>
+<p>ES:DI＝磁盘驱动器参数表地址</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">寒冰</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2018/11/10
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/chap2.6_%E8%AF%BB%E5%8F%96%E7%A3%81%E7%9B%98_chs%E6%96%B9%E5%BC%8F/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">2.6_读取磁盘_CHS方式</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/chap2.4_%E6%98%BE%E7%A4%BA%E5%AD%97%E7%AC%A6%E4%B8%B22/">
+            <span class="next-text nav-default">2.4_显示字符串</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://blog.shawn1024.fun/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2012 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>寒冰</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

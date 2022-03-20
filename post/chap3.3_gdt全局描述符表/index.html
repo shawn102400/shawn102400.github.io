@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>3.3_GDT全局描述符表 - 寒冰小站</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="寒冰" /><meta name="description" content="GDT全局描述符表 什么是GDT全局描述符表 GDT全称为Global Descriptor Table,全局描述符表。 保护模式的寻址方式不在使用寄存器分段的方式直接" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.92.0 with theme even" />
+
+
+<link rel="canonical" href="https://blog.shawn1024.fun/post/chap3.3_gdt%E5%85%A8%E5%B1%80%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="3.3_GDT全局描述符表" />
+<meta property="og:description" content="GDT全局描述符表 什么是GDT全局描述符表 GDT全称为Global Descriptor Table,全局描述符表。 保护模式的寻址方式不在使用寄存器分段的方式直接" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.shawn1024.fun/post/chap3.3_gdt%E5%85%A8%E5%B1%80%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-01-06T11:27:28+00:00" />
+<meta property="article:modified_time" content="2019-01-06T00:00:00+00:00" />
+
+<meta itemprop="name" content="3.3_GDT全局描述符表">
+<meta itemprop="description" content="GDT全局描述符表 什么是GDT全局描述符表 GDT全称为Global Descriptor Table,全局描述符表。 保护模式的寻址方式不在使用寄存器分段的方式直接"><meta itemprop="datePublished" content="2019-01-06T11:27:28+00:00" />
+<meta itemprop="dateModified" content="2019-01-06T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1532">
+<meta itemprop="keywords" content="操作系统," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="3.3_GDT全局描述符表"/>
+<meta name="twitter:description" content="GDT全局描述符表 什么是GDT全局描述符表 GDT全称为Global Descriptor Table,全局描述符表。 保护模式的寻址方式不在使用寄存器分段的方式直接"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">寒冰小站</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">寒冰小站</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">3.3_GDT全局描述符表</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019/01/06 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"> 操作系统 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#gdt全局描述符表">GDT全局描述符表</a>
+          <ul>
+            <li><a href="#什么是gdt全局描述符表">什么是GDT全局描述符表</a></li>
+            <li><a href="#gdt格式">GDT格式</a></li>
+            <li><a href="#段选择子">段选择子</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="gdt全局描述符表">GDT全局描述符表</h2>
+<h3 id="什么是gdt全局描述符表">什么是GDT全局描述符表</h3>
+<p>GDT全称为<code>Global Descriptor Table</code>,全局描述符表。</p>
+<p>保护模式的寻址方式不在使用寄存器分段的方式直接寻址方式了。而采用的是使用GDT（全局分段描述表）来寻址。从而使用更多的内存地址。</p>
+<p>创建GDT全局描述符表使用到一个48位的寄存器：GDTR寄存器。</p>
+<p>1）首先，在内存中划分一些内存段，并且每个内存段赋予一个索引。</p>
+<p>2）然后，使用lgdt指令，设置GDT的索引和表信息的内存地址到GDTR寄存器。</p>
+<p>3）进入保护模式，指令跳转，从实模式分段方式寻址切换到使用GDT分段方式寻址。</p>
+<ol start="4">
+<li>GDT可以被放在内存的任何地方,只要提供内存地址给GDTR寄存器就可以了。</li>
+</ol>
+<h3 id="gdt格式">GDT格式</h3>
+<p><strong>GDT全局描述符表</strong></p>
+<ul>
+<li>表基地址，表基地址位GDT段表在内存的地址，GDT段表是一个列表，存储了多个 GDT段描述符。</li>
+<li>表界限：GDT段表的空间信息，以字节为单位。</li>
+</ul>
+<p><img src="images/001.png" alt="images/001.png"></p>
+<blockquote>
+<p>GDT全局描述符表 = GDT段表基地址 | 16位表界限</p>
+<p>GDT段表 =　 GDT段描述符　｜　 GDT段描述符　｜　GDT段描述符 &hellip;</p>
+<p>表界限 = GDT字节数 - 1  （表示 0 - 0x&hellip;）</p>
+</blockquote>
+<p><strong>GDT段描述符</strong></p>
+<p><img src="images/002.png" alt="images/003.png"></p>
+<p>GDT段描述符，用来描述在GDT方式在内存中分配的一个段信息，总共8字节64位。</p>
+<p>GDT段描述符结构</p>
+<p>为了兼容以前的CPU，GDT段描述符的信息被分割成几个部分，格式如下：</p>
+<blockquote>
+<p>GDT段描述符　＝　</p>
+<p>段基址 （8位）| 段描述符（4位） |  段界限（4位） | 段描述符（8位）  段基址 （8位）</p>
+<p>段基址 （16位） | 段界限（16位）</p>
+</blockquote>
+<p>段描述符定义</p>
+<ul>
+<li>段基址：规定段的起始地址,长度32位.</li>
+<li>段界限：规定段的大小,长度20位。段界限可以是以<code>4KB</code>或者<code>1B</code>为单元大小</li>
+<li>段属性：确定段的各种性质.长度(12位)</li>
+</ul>
+<p>段属性：</p>
+<ul>
+<li>G 粒度位: 段界限的单位大小，G=1表示段界限以<code>4KB</code>为单元单位，G=0表示段界限以<code>1B</code>为单元单位</li>
+<li>D/B 表示操作数为多少位， 0表示16位操作数，1表示32位操作数</li>
+<li>L ： 0 表示非64位代码段，1表示64位代码段</li>
+<li>AVL ：可用字段，暂时没什么用</li>
+<li>P   段存在位:通常为1，表示段存在于内存中，0则此段为非法的，不能被用来实现地址转换</li>
+<li>DPL 特权级(2位): 用来实现保护机制</li>
+<li>S  为0表示系统段，为1表示非系统段</li>
+<li>type 类型(4位): 用于区别不同类型的描述符。内存段或者门的子类型</li>
+</ul>
+<p>type值</p>
+<table>
+<thead>
+<tr>
+<th>Type位</th>
+<th>说明</th>
+<th>取值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>代码段时</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>X：3位</td>
+<td>代码段值为1</td>
+<td>0：为数据段<br>1：为代码段</td>
+</tr>
+<tr>
+<td>C：2位</td>
+<td>访问位</td>
+<td>0：为普通段<br>1：为一致码段</td>
+</tr>
+<tr>
+<td>R：1位</td>
+<td>是否可读</td>
+<td>0：只执行<br>1：可读</td>
+</tr>
+<tr>
+<td>A：0位</td>
+<td>访问位. 该段是否被访问过</td>
+<td>0 ：未访问<br>1：已访问</td>
+</tr>
+<tr>
+<td><strong>数据段时</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>X：3位</td>
+<td>数据段值为1</td>
+<td>0：为数据段 <br>1：为代码段</td>
+</tr>
+<tr>
+<td>E：2位</td>
+<td>扩展方向</td>
+<td>0：向高位扩展 <br>1：向低位扩展</td>
+</tr>
+<tr>
+<td>W：1位</td>
+<td>是否可写</td>
+<td>0：只读<br>1：可写</td>
+</tr>
+<tr>
+<td>A：0位</td>
+<td>访问位</td>
+<td>0： 未访问<br>1：已访问<td></td>
+</tr>
+</tbody>
+</table>
+<p>段界限:</p>
+<p>段界限边界值 =  （描述符的段界限值 + 1） × （段界限颗粒读：4Kb 或者 1b） -1</p>
+<p>反之：
+描述符的段界限值 = （段界限边界值 + 1） /（段界限颗粒读：4Kb 或者 1b）</p>
+<p>例如：</p>
+<p>16MB的段界限值 =  0x1000000  /（段界限颗粒读：4Kb 或者 1b - 1）= 0x0fff</p>
+<h3 id="段选择子">段选择子</h3>
+<p>段选择子包括三部分：描述符索引（index）、TI、请求特权级（RPL）</p>
+<p><strong>GDTR寄存器</strong></p>
+<p>在内存中建立完成GDT信息后，CPU会将GDT的内存地址 和 段界限 数据加载入GDTR寄存器</p>
+<p>GDTR寄存器数据(48位)：</p>
+<blockquote>
+<p>GDTR定义数据(48位) ＝ GDT全局描述符表的大小(16位)  +  GDT全局描述符表的地址(32位)</p>
+</blockquote>
+<p><strong>lgdt指令</strong></p>
+<blockquote>
+<p>lgdt GDTR定义数据</p>
+</blockquote>
+<p>其中GDT全局描述符表数据格式如下</p>
+<blockquote>
+<p>GDT全局描述符表 =  GDT段描述符(64位) |  GDT段描述符(64位) | GDT段描述符(64位) &hellip;</p>
+<p>GDT段描述符 =  段基址 （8位）| 段描述符（4位） |  段界限（4位） | 段描述符（8位） | 段基址 （8位） | 段基址 （16位） | 段界限（16位）</p>
+</blockquote>
+<p>其中，第一个GDT段的数据为空。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">寒冰</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019/01/06
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/chap3.4_gdt%E4%B8%B4%E6%97%B6%E5%88%86%E6%AE%B5/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">3.4_GDT临时分段</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/chap3.2_%E8%BF%9B%E5%85%A5%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/">
+            <span class="next-text nav-default">3.2_进入保护模式</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://blog.shawn1024.fun/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2012 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>寒冰</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

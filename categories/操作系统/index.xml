@@ -6,7 +6,223 @@
     <description>Recent content in 操作系统 on 寒冰小站</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 22 Oct 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.shawn1024.fun/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 20 Feb 2019 11:27:28 +0000</lastBuildDate><atom:link href="https://blog.shawn1024.fun/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>4.9_VGA图形模式</title>
+      <link>https://blog.shawn1024.fun/post/chap4.9_vga%E5%9B%BE%E5%BD%A2%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Wed, 20 Feb 2019 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap4.9_vga%E5%9B%BE%E5%BD%A2%E6%A8%A1%E5%BC%8F/</guid>
+      <description>VGA图形模式 include/stdint.h 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 #ifndef __LIB_STDINT_H #define __LIB_STDINT_H typedef signed char int8; typedef signed short int16; typedef signed int int32; typedef signed long long int64; typedef unsigned char uint8; typedef unsigned short uint16; typedef unsigned int uint32; typedef unsigned int uint; typedef unsigned long long uint64; #endif include/console.h 1 2 3</description>
+    </item>
+    
+    <item>
+      <title>4.8_光标寄存器</title>
+      <link>https://blog.shawn1024.fun/post/chap4.8_%E5%85%89%E6%A0%87%E5%AF%84%E5%AD%98%E5%99%A8/</link>
+      <pubDate>Sat, 16 Feb 2019 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap4.8_%E5%85%89%E6%A0%87%E5%AF%84%E5%AD%98%E5%99%A8/</guid>
+      <description>光标寄存器 光标位置信息位于显卡的2个光标寄存器中，总共16位，分为高位和低位存储。 例如。 标准VGA模式为 25 行 80 列 pos = 0 ：表示 位于 1 行 0 列 pos =</description>
+    </item>
+    
+    <item>
+      <title>4.7_外设端口读写指令</title>
+      <link>https://blog.shawn1024.fun/post/chap4.7_%E5%A4%96%E8%AE%BE%E7%AB%AF%E5%8F%A3%E8%AF%BB%E5%86%99%E6%8C%87%E4%BB%A4/</link>
+      <pubDate>Fri, 15 Feb 2019 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap4.7_%E5%A4%96%E8%AE%BE%E7%AB%AF%E5%8F%A3%E8%AF%BB%E5%86%99%E6%8C%87%E4%BB%A4/</guid>
+      <description>外设端口读写指令 cpu可以直接读写以下三个地方的数据，读写三个地方的指令都是不同的，他们的空间也是分开的，这点要注意。 内存 寄存器 端口 端口读写</description>
+    </item>
+    
+    <item>
+      <title>4.6_内联汇编</title>
+      <link>https://blog.shawn1024.fun/post/chap4.6_%E5%86%85%E8%81%94%E6%B1%87%E7%BC%96/</link>
+      <pubDate>Sun, 10 Feb 2019 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap4.6_%E5%86%85%E8%81%94%E6%B1%87%E7%BC%96/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>4.4_C语言调用汇编</title>
+      <link>https://blog.shawn1024.fun/post/chap4.4_c%E8%AF%AD%E8%A8%80%E8%B0%83%E7%94%A8%E6%B1%87%E7%BC%96/</link>
+      <pubDate>Thu, 07 Feb 2019 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap4.4_c%E8%AF%AD%E8%A8%80%E8%B0%83%E7%94%A8%E6%B1%87%E7%BC%96/</guid>
+      <description>C语言调用汇编 C语言头文件 include/io.h 1 2 3 4 5 6 #ifndef __LIB_IO_H #define __LIB_IO_H void io_hlt(); #endif 汇编实现 asm/io.asm 1 2 3 4 5 6 7 8 9 10 11 ;io.asm [bits 32] global io_hlt [section .text] io_hlt: ; void io_hlt hlt ret 代码调用 main.c 1 2 3 4 5 6 7 8 9</description>
+    </item>
+    
+    <item>
+      <title>4.3_设置显示模式</title>
+      <link>https://blog.shawn1024.fun/post/chap4.3_%E5%9B%BE%E5%BD%A2%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Wed, 06 Feb 2019 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap4.3_%E5%9B%BE%E5%BD%A2%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/</guid>
+      <description>设置显示模式 图形模式 如果想要改变显示方式，你可以通过BIOS中断来设置显示模式。 参考BIOS中断大全，随便列出几个 1. 设置显示器模式 中断操作：</description>
+    </item>
+    
+    <item>
+      <title>4.2_解析ELF文件</title>
+      <link>https://blog.shawn1024.fun/post/chap4.2_%E8%A7%A3%E6%9E%90elf%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Mon, 04 Feb 2019 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap4.2_%E8%A7%A3%E6%9E%90elf%E6%96%87%E4%BB%B6/</guid>
+      <description>解析ELF文件 准备工作 输出心形的c语言代码 kernel/main.c 1 2 3 4 5 6 7 8 9 10 11 12 typedef unsigned char int8; int _start(){ int8 *pvga = (int8 *)0xb8000; //填充到显示内存的初始地址 for(int i = 0;i &amp;lt;= 0xffff;){ //char: 0x3 ,color: 0x104 *(pvga</description>
+    </item>
+    
+    <item>
+      <title>4.1_ELF文件</title>
+      <link>https://blog.shawn1024.fun/post/chap4.1_elf%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Sun, 03 Feb 2019 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap4.1_elf%E6%96%87%E4%BB%B6/</guid>
+      <description>ELF文件 上次说过了,其实目标文件和可执行文件都是ELF格式文件 ELF索引表 ELF 文件包括三个索引表 ELF Header： ELF文件头 作用： 指定程序入</description>
+    </item>
+    
+    <item>
+      <title>3.8_加载器</title>
+      <link>https://blog.shawn1024.fun/post/chap3.8_%E5%86%85%E5%AD%98%E8%A7%84%E5%88%92/</link>
+      <pubDate>Mon, 14 Jan 2019 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap3.8_%E5%86%85%E5%AD%98%E8%A7%84%E5%88%92/</guid>
+      <description>加载器 引导的第三阶段 第一次加载文件，引导扇区，系统的入口 第二次加载文件，loader文件，负责从16位实模式进入32位保护模式 第三次加载文件</description>
+    </item>
+    
+    <item>
+      <title>3.7_C语言程序</title>
+      <link>https://blog.shawn1024.fun/post/chap3.7_c%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F/</link>
+      <pubDate>Sun, 13 Jan 2019 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap3.7_c%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F/</guid>
+      <description>C语言程序 工具 首先，需要的工具软件列表： gcc编译器： 编译C语言程序 1. 为什么没有main函数 main函数链接时需要一些系统库文件。而我们的系</description>
+    </item>
+    
+    <item>
+      <title>3.6_C语言</title>
+      <link>https://blog.shawn1024.fun/post/chap3.6_c%E8%AF%AD%E8%A8%80/</link>
+      <pubDate>Fri, 11 Jan 2019 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap3.6_c%E8%AF%AD%E8%A8%80/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>3.5_刷新流水线</title>
+      <link>https://blog.shawn1024.fun/post/chap3.5_%E5%88%B7%E6%96%B0%E6%B5%81%E6%B0%B4%E7%BA%BF/</link>
+      <pubDate>Tue, 08 Jan 2019 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap3.5_%E5%88%B7%E6%96%B0%E6%B5%81%E6%B0%B4%E7%BA%BF/</guid>
+      <description>刷新流水线 为什么需要刷新流水线 进入保护模式下，需要尽快刷新CS，SS等段寄存器。 立即跳转到32位模式，刷新流水线 进入保护模式后，需要马上跳转</description>
+    </item>
+    
+    <item>
+      <title>3.4_GDT临时分段</title>
+      <link>https://blog.shawn1024.fun/post/chap3.4_gdt%E4%B8%B4%E6%97%B6%E5%88%86%E6%AE%B5/</link>
+      <pubDate>Mon, 07 Jan 2019 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap3.4_gdt%E4%B8%B4%E6%97%B6%E5%88%86%E6%AE%B5/</guid>
+      <description>GDT临时分段 GDT临时段说明 现在已经进入了保护模式, 目前的改变 可以访问1M以上的内存了 可以使用32位的指令 问题： 由于以前的是实式下段寄存器</description>
+    </item>
+    
+    <item>
+      <title>3.3_GDT全局描述符表</title>
+      <link>https://blog.shawn1024.fun/post/chap3.3_gdt%E5%85%A8%E5%B1%80%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8/</link>
+      <pubDate>Sun, 06 Jan 2019 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap3.3_gdt%E5%85%A8%E5%B1%80%E6%8F%8F%E8%BF%B0%E7%AC%A6%E8%A1%A8/</guid>
+      <description>GDT全局描述符表 什么是GDT全局描述符表 GDT全称为Global Descriptor Table,全局描述符表。 保护模式的寻址方式不在使用寄存器分段的方式直接</description>
+    </item>
+    
+    <item>
+      <title>3.2_进入保护模式</title>
+      <link>https://blog.shawn1024.fun/post/chap3.2_%E8%BF%9B%E5%85%A5%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 05 Jan 2019 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap3.2_%E8%BF%9B%E5%85%A5%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/</guid>
+      <description>进入保护模式 [TOC] 进入保护模式 进入保护模式的步骤： 关闭中断，打开地址线A20GATE，使得CPU可以访问1M以上的内存空间。 设置CR0寄存器，进</description>
+    </item>
+    
+    <item>
+      <title>3.1_保护模式</title>
+      <link>https://blog.shawn1024.fun/post/chap3.1_%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Fri, 04 Jan 2019 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap3.1_%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/</guid>
+      <description>保护模式 保护模式寻址方式 1. 实模式下寻址的缺陷 2.保护模式下寻址 实模式下使用的是段寄存器(16位) &amp;lt;&amp;lt; 4 + 偏移地址方式来寻址。 保护模式可就厉害了</description>
+    </item>
+    
+    <item>
+      <title>2.8_Makefile</title>
+      <link>https://blog.shawn1024.fun/post/chap2.8_makefile/</link>
+      <pubDate>Wed, 21 Nov 2018 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap2.8_makefile/</guid>
+      <description>Makefile 安装make 安装make sudo apt-get install make make -v 创建Makefile文件，并执行make命令 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29</description>
+    </item>
+    
+    <item>
+      <title>2.7_读取磁盘_LBA方式</title>
+      <link>https://blog.shawn1024.fun/post/chap2.7_%E8%AF%BB%E5%8F%96%E7%A3%81%E7%9B%98_lba%E6%96%B9%E5%BC%8F/</link>
+      <pubDate>Sat, 17 Nov 2018 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap2.7_%E8%AF%BB%E5%8F%96%E7%A3%81%E7%9B%98_lba%E6%96%B9%E5%BC%8F/</guid>
+      <description>读取磁盘_LBA方式 LBA简介 LBA方式访问使用了data寄存器，LBA寄存器（总共3个），device寄存器，command寄存器来完成的</description>
+    </item>
+    
+    <item>
+      <title>2.6_读取磁盘_CHS方式</title>
+      <link>https://blog.shawn1024.fun/post/chap2.6_%E8%AF%BB%E5%8F%96%E7%A3%81%E7%9B%98_chs%E6%96%B9%E5%BC%8F/</link>
+      <pubDate>Tue, 13 Nov 2018 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap2.6_%E8%AF%BB%E5%8F%96%E7%A3%81%E7%9B%98_chs%E6%96%B9%E5%BC%8F/</guid>
+      <description>读取磁盘_CHS方式 BIOS读取磁盘 读取磁盘也是调用BIOS： 中断命令: INT 13H 入口参数 寄存器 说明 值 AH 功能：02H读取扇区 02H AL 扇区数 &amp;mdash; CH 柱面数 &amp;mdash;</description>
+    </item>
+    
+    <item>
+      <title>2.5_磁盘</title>
+      <link>https://blog.shawn1024.fun/post/chap2.5_%E7%A3%81%E7%9B%98/</link>
+      <pubDate>Sat, 10 Nov 2018 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap2.5_%E7%A3%81%E7%9B%98/</guid>
+      <description>磁盘 软盘和硬盘 目前主流的硬盘分为两种： 机械硬盘 固态硬盘 硬盘最早分为两种接口方式： 并行接口（PATA），目前已经淘汰。 串行接口（SATA）。 磁</description>
+    </item>
+    
+    <item>
+      <title>2.4_显示字符串</title>
+      <link>https://blog.shawn1024.fun/post/chap2.4_%E6%98%BE%E7%A4%BA%E5%AD%97%E7%AC%A6%E4%B8%B22/</link>
+      <pubDate>Thu, 08 Nov 2018 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap2.4_%E6%98%BE%E7%A4%BA%E5%AD%97%E7%AC%A6%E4%B8%B22/</guid>
+      <description>显示字符串 字符串中断 通过AH＝13H中断来显示字符串。 1. 字符串中断 当BIOS执行显示字符串调用显示服务 INT 10H，AH＝13H，可以进行单个字</description>
+    </item>
+    
+    <item>
+      <title>2.3_显示字符</title>
+      <link>https://blog.shawn1024.fun/post/chap2.3_%E6%98%BE%E7%A4%BA%E5%AD%97%E7%AC%A6%E4%B8%B21/</link>
+      <pubDate>Wed, 07 Nov 2018 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap2.3_%E6%98%BE%E7%A4%BA%E5%AD%97%E7%AC%A6%E4%B8%B21/</guid>
+      <description>显示字符 字符中断显示字符串 1. 字符中断 当BIOS执行显示字符调用显示服务 INT 10H，AH＝0EH，可以进行单个字符的显示 首先需要配置入口参数： 中</description>
+    </item>
+    
+    <item>
+      <title>2.2_文本显示模式</title>
+      <link>https://blog.shawn1024.fun/post/chap2.2_%E6%96%87%E6%9C%AC%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Mon, 05 Nov 2018 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap2.2_%E6%96%87%E6%9C%AC%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/</guid>
+      <description>文本显示模式 [TOC] 显示模式 计算机在加电自检之后，会将显示初始化为80 x 25的文本模式。此时，我们可以进行文本显示了。 而计算机的显示一般有2种模式</description>
+    </item>
+    
+    <item>
+      <title>2.1_实模式</title>
+      <link>https://blog.shawn1024.fun/post/chap2.1_%E5%AE%9E%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Fri, 02 Nov 2018 11:27:28 +0000</pubDate>
+      
+      <guid>https://blog.shawn1024.fun/post/chap2.1_%E5%AE%9E%E6%A8%A1%E5%BC%8F/</guid>
+      <description>实模式 [TOC] 实模式分段机制 1. 实模式 在32位系统中，CPU有2种工作模式，分别为实模式和保护模式。当电脑一开始启动时，就默认进入实模式下。 2. 为什么</description>
+    </item>
+    
     <item>
       <title>1.9_Bochs</title>
       <link>https://blog.shawn1024.fun/post/chap1.9_bochs/</link>
