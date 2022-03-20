@@ -1,9 +1,11 @@
 ---
-title: "CPU简介"
-date: 2021-08-01
+title: "1.1_CPU简介"
+date: 2018-10-02
+lastmod: 2021-03-20
 timezone: UTC+8
 tags: ["操作系统"]
 categories: ["操作系统"]
+draft: false
 ---
 
 
@@ -64,7 +66,10 @@ CPU通过控制总线发出各种控制命令，用来操作外部设备。
 
 CPU寄存器组可以分为通用寄存器组，段寄存器组，指令指针寄存器 和 标志寄存器。
 
-![1.3.1.png)](images/1.3.1.png)
+![1.3.1.png)](images/1.3_1.png)
+
+
+
 
 
 

@@ -1,6 +1,6 @@
 ---
-title: "主引导扇区"
-date: 2021-08-01
+title: "1.5_主引导扇区"
+date: 2018-10-10
 timezone: UTC+8
 tags: ["操作系统"]
 categories: ["操作系统"]
@@ -84,7 +84,7 @@ BIOS系统首先会读取 0 柱面 0 磁道 1 扇区，将其内容加载到内�
 创建boot目录，并新建文件boot/boot.asm
 
 ```assembly
-; RatsOS
+; GloxOS BOOT
 [bits 16]
 
     org     0x7c00      ; 指明程序的偏移的基地址
@@ -92,7 +92,7 @@ BIOS系统首先会读取 0 柱面 0 磁道 1 扇区，将其内容加载到内�
     ; 引导扇区代码
     jmp     Entry
     db      0x90
-    db      "RATSBOOT"
+    db      "GLOXBOOT"
 
 ; 程序核心内容
 Entry:
@@ -110,7 +110,7 @@ Fill0:
 >
 >`jmp     Entry`：这句是正式开始执行的代码，表示跳转到后面 `Entry`标记的位置执行指令。
 >
->`db      0x90,  db      "RATSBOOT"`:  填充内容，并无实际作用。不是系统指令，也不会被执行。
+>`db      0x90,  db      "GLOXBOOT"`:  填充内容，并无实际作用。不是系统指令，也不会被执行。
 >
 >` jmp $`:  $ 代表当前行首的地址，所以会一直循环执行此指令。
 >
@@ -126,25 +126,25 @@ Fill0:
 
 > nasm -f bin -o boot.bin boot/boot.asm
 
-然后，使用 linux 命令创建一个1.44M大小，字节都为0的 ratsos.img 镜像文件
+然后，使用 linux 命令创建一个1.44M大小，字节都为0的 gloxos.img 镜像文件
 
-> dd if=/dev/zero of=fdimage.img bs=1024 count=1440
+> dd if=/dev/zero of=gloxos.img bs=1024 count=1440
 
-将引导扇区文件，添加到ratsos.ima镜像中
+将引导扇区文件，添加到ratsos.img 镜像中
 
-> dd if=boot.bin  of=ratsos.ima bs=512 count=1  conv=notrunc
+> dd if=boot.bin  of=gloxos.img bs=512 count=1  conv=notrunc
 
 创建完成，至于dd命令的用法，自己查找学习，在此不做详述了。
 
-总结，也可以构建完整的 run.sh 执行脚本如下
+总结，也可以构建完整的 build.sh 执行脚本如下
 
 ```nasm
 #!/bin/bash
 
 NASM=nasm
 $NASM -f bin -o boot.bin boot/boot.asm
-dd if=/dev/zero of=ratsos.ima bs=512 count=2880
-dd if=boot.bin  of=ratsos.ima bs=512 count=1  conv=notrunc
+dd if=/dev/zero of=gloxos.img bs=512 count=2880
+dd if=boot.bin  of=gloxos.img bs=512 count=1  conv=notrunc
 ```
 
 
@@ -152,15 +152,30 @@ dd if=boot.bin  of=ratsos.ima bs=512 count=1  conv=notrunc
 **在虚拟机中执行**
 
 1. 使用vitualbox虚拟机
+
+   创建一个虚拟电脑，名称为GloxOS
+
 2. 加载并运行镜像
 
-![1.2.1.gif](images/1.2.1.gif)
+    使用vitualbox创建一个系统，添加一个软盘驱动器。
+
+    添加一个软盘驱动器。
+
+    使用软盘驱动器加载镜像文件gloxos.img。
+    
+    ![images/1.7_1.png](images/1.5_2.png)
+    
+3. 启动系统
+   
+	点击显示运行系统
+   
+    ![](images/1.5_1.gif)
 
 
 
-顺利启动，可以发现进入一个黑屏界面。并且光标一直闪烁。
+    顺利启动，可以发现进入一个黑屏界面。并且光标一直闪烁。
 
 
-**代码地址**
-[https://github.com/sxt102400/ratsos/tree/master/chapter2.1](https://github.com/sxt102400/ratsos/tree/master/chapter2.1)
+    **代码地址**
+    [https://github.com/sxt102400/ratsos/tree/master/chapter2.1](https://github.com/sxt102400/ratsos/tree/master/chapter2.1)
 

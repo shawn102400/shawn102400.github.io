@@ -1,6 +1,6 @@
 ---
-title: "计算机启动过程"
-date: 2021-08-01
+title: "1.4_计算机启动过程"
+date: 2018-10-09
 timezone: UTC+8
 tags: ["操作系统"]
 categories: ["操作系统"]
