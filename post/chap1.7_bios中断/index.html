@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>汇编语言 - 寒冰小站</title>
+  <title>1.7_BIOS中断 - 寒冰小站</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="shawn" /><meta name="description" content="汇编语言 1. 机器语言与汇编语言 1.1 机器语言简介 对于计算机来说，能识别的只有0,1两个数字。最早的时候，程序员就是用0，1这2个符号来进行编码，不" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="寒冰" /><meta name="description" content="BIOS中断 BIOS中断简介 计算机刚启动时，进入实模式下，此时操作系统跟硬件（例如键盘鼠标显卡等）交互通过BIOS进行的。通过调用中BIOS" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.92.0 with theme even" />
 
 
-<link rel="canonical" href="https://blog.shawn1024.fun/post/chap-1.4-%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" />
+<link rel="canonical" href="https://blog.shawn1024.fun/post/chap1.7_bios%E4%B8%AD%E6%96%AD/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -39,20 +39,20 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="汇编语言" />
-<meta property="og:description" content="汇编语言 1. 机器语言与汇编语言 1.1 机器语言简介 对于计算机来说，能识别的只有0,1两个数字。最早的时候，程序员就是用0，1这2个符号来进行编码，不" />
+<meta property="og:title" content="1.7_BIOS中断" />
+<meta property="og:description" content="BIOS中断 BIOS中断简介 计算机刚启动时，进入实模式下，此时操作系统跟硬件（例如键盘鼠标显卡等）交互通过BIOS进行的。通过调用中BIOS" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.shawn1024.fun/post/chap-1.4-%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-08-01T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-08-01T00:00:00+00:00" />
+<meta property="og:url" content="https://blog.shawn1024.fun/post/chap1.7_bios%E4%B8%AD%E6%96%AD/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-10-14T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-10-14T00:00:00+00:00" />
 
-<meta itemprop="name" content="汇编语言">
-<meta itemprop="description" content="汇编语言 1. 机器语言与汇编语言 1.1 机器语言简介 对于计算机来说，能识别的只有0,1两个数字。最早的时候，程序员就是用0，1这2个符号来进行编码，不"><meta itemprop="datePublished" content="2021-08-01T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2021-08-01T00:00:00+00:00" />
-<meta itemprop="wordCount" content="899">
+<meta itemprop="name" content="1.7_BIOS中断">
+<meta itemprop="description" content="BIOS中断 BIOS中断简介 计算机刚启动时，进入实模式下，此时操作系统跟硬件（例如键盘鼠标显卡等）交互通过BIOS进行的。通过调用中BIOS"><meta itemprop="datePublished" content="2018-10-14T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-10-14T00:00:00+00:00" />
+<meta itemprop="wordCount" content="364">
 <meta itemprop="keywords" content="操作系统," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="汇编语言"/>
-<meta name="twitter:description" content="汇编语言 1. 机器语言与汇编语言 1.1 机器语言简介 对于计算机来说，能识别的只有0,1两个数字。最早的时候，程序员就是用0，1这2个符号来进行编码，不"/>
+<meta name="twitter:title" content="1.7_BIOS中断"/>
+<meta name="twitter:description" content="BIOS中断 BIOS中断简介 计算机刚启动时，进入实模式下，此时操作系统跟硬件（例如键盘鼠标显卡等）交互通过BIOS进行的。通过调用中BIOS"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -78,13 +78,13 @@
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
     <a href="/">
-        <li class="mobile-menu-item">Home</li>
+        <li class="mobile-menu-item">主页</li>
       </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
+        <li class="mobile-menu-item">归档</li>
       </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
+        <li class="mobile-menu-item">标签</li>
       </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
+        <li class="mobile-menu-item">分类</li>
       </a>
   </ul>
 
@@ -106,13 +106,13 @@
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
+        <a class="menu-item-link" href="/">主页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
+        <a class="menu-item-link" href="/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
+        <a class="menu-item-link" href="/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
+        <a class="menu-item-link" href="/categories/">分类</a>
       </li>
   </ul>
 </nav>
@@ -125,10 +125,10 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">汇编语言</h1>
+      <h1 class="post-title">1.7_BIOS中断</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2021-08-01 </span>
+        <span class="post-time"> 2018/10/14 </span>
         <div class="post-category">
             <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"> 操作系统 </a>
             </div>
@@ -138,15 +138,16 @@
 
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">文章目录</h2>
-  <div class="post-toc-content always-active">
+  <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
     <li>
       <ul>
-        <li><a href="#汇编语言">汇编语言</a>
+        <li><a href="#bios中断">BIOS中断</a>
           <ul>
-            <li><a href="#1-机器语言与汇编语言">1. 机器语言与汇编语言</a></li>
-            <li><a href="#2-指令执行">2. 指令执行</a></li>
+            <li><a href="#bios中断简介">BIOS中断简介</a></li>
+            <li><a href="#bios中断大全">BIOS中断大全</a></li>
+            <li><a href="#bios的中断向量表">BIOS的中断向量表</a></li>
           </ul>
         </li>
       </ul>
@@ -156,56 +157,238 @@
   </div>
 </div>
     <div class="post-content">
-      <h2 id="汇编语言">汇编语言</h2>
-<h3 id="1-机器语言与汇编语言">1. 机器语言与汇编语言</h3>
-<p><strong>1.1 机器语言简介</strong>
-对于计算机来说，能识别的只有0,1两个数字。最早的时候，程序员就是用0，1这2个符号来进行编码，不如远古时期的纸带卡片，使用打孔来代表1，不打孔代表0，然后通过纸带机或卡片机来识别运行这种0，1程序。</p>
-<p>这种程序方便计算机运行，但是却是不容易让程序员进行编写的。</p>
-<p><strong>1.2 汇编语言简介</strong></p>
-<p>人们通过编写汇编指令，然后使用汇编编译器编译成机器语言。汇编语言比机器语言更容易阅读识别</p>
-<p>比如</p>
-<p>操作：寄存器BX的内容送到AX中</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">1000100111011000              // 机器指令
-mov ax,bx                    // 汇编指令
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="2-指令执行">2. 指令执行</h3>
-<p><strong>2.1 指令寻址</strong></p>
-<blockquote>
-<p>cs寄存器，ip寄存器</p>
-</blockquote>
-<p>每次从  [cs，ip] 取一条指令执行，执行后ip值增加，指向下一条指令</p>
-<p>CPU执行时，会一直的从内存单元中读取指令，坊到指令缓冲器执行。而取指令时，是根据CS寄存器和IP寄存器来获取一个地址
-[CS:IP]。这个地址指向内存单元中的代码段。CPU从中读取一条指令执行，然后IP指向下一条指令，继续读取执行。如此循环。
-[CS+IP]：CS=段地址,IP=偏移地址。CPU一直从[CS+IP]指向的内存单元处读取指令。</p>
-<p><strong>2.2 访问数据</strong>
-当CPU需要获取一个数据时，这时候代码段中能够获得的是DS寄存器和一个偏移地址。
-<code>[DS*0x10 + 偏移地址]</code>，指定地址时候可以不显示的写出DS。
-这个地址指向内存单元中的数据。CPU根据这个地址获取到需要的数据。
-基本地址：DS存储的是基本地址，但是在程序中段寄存器DS一般可以不显示说明。只用 <code>[偏移地址]</code> 来表示内存单元的地址。
-偏移地址：是一个常数，可以直接使用数字来表示，比如：<code>[553]</code>。也可以使用BX，BP，SI，DI（其他的寄存器不能表示内存地址）中的值来表示。比如<code>[BX]</code>。
-<code>[DS+BX]：DS=段地址,BX=偏移地址</code>，内存单元地址为<code>DS*0x10+BX</code>。计算其寻址能力根据可指定的内存范围大概为0-1M之间。</p>
-<p><strong>2.3 指令跳转</strong></p>
-<p>当CPU执行完一块内存中的代码段时，使用JMP命令来修改CS寄存器和IP寄存器的值。从而控制计算机指令执行的跳转。</p>
-<p>jmp：jmp指令转移就是修改cs，ip寄存器的指向。来完成跳转的功能。JMP导致[CS:IP]指向新的内存单元，CPU从新的内存单元读取指令。</p>
+      <h2 id="bios中断">BIOS中断</h2>
+<h3 id="bios中断简介">BIOS中断简介</h3>
+<p>计算机刚启动时，进入实模式下，此时操作系统跟硬件（例如键盘鼠标显卡等）交互通过BIOS进行的。通过调用中BIOS中断的方式来访问硬件设备。</p>
+<p>BIOS中断就不详细介绍了。</p>
+<h3 id="bios中断大全">BIOS中断大全</h3>
+<p>查询相应的中断API可以根据BIOS中断大全：<a href="https://blog.csdn.net/u013529907/article/details/37758175">BIOS中断大全</a></p>
+<h3 id="bios的中断向量表">BIOS的中断向量表</h3>
+<p>中断向量表位置</p>
+<p>中断向量表位于BIOS的 0x0000 - 0x03FF 地方，大小为 1k。</p>
+<table>
+<thead>
+<tr>
+<th>中断号</th>
+<th></th>
+<th>说明: int 中断号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x00</td>
+<td>DIVIDE ERROR</td>
+<td></td>
+</tr>
+<tr>
+<td>0x01</td>
+<td>SINGLE STEP</td>
+<td></td>
+</tr>
+<tr>
+<td>0x02</td>
+<td>NON-MASKABLE INTERRUPT</td>
+<td></td>
+</tr>
+<tr>
+<td>0x03</td>
+<td>BREAKPOINT</td>
+<td></td>
+</tr>
+<tr>
+<td>0x04</td>
+<td>INT0 DETECTED OVERFLOW</td>
+<td></td>
+</tr>
+<tr>
+<td>0x05</td>
+<td>BOUND RANGE EXCEED</td>
+<td></td>
+</tr>
+<tr>
+<td>0x06</td>
+<td>INVALID OPCODE</td>
+<td></td>
+</tr>
+<tr>
+<td>0x07</td>
+<td>PROCESSOR EXTENSION NOT AVAILABLE</td>
+<td></td>
+</tr>
+<tr>
+<td>0x08</td>
+<td>IRQ0</td>
+<td></td>
+</tr>
+<tr>
+<td>0x09</td>
+<td>IRQ1</td>
+<td></td>
+</tr>
+<tr>
+<td>0x0a</td>
+<td>IRQ2</td>
+<td></td>
+</tr>
+<tr>
+<td>0x0b</td>
+<td>IRQ3</td>
+<td></td>
+</tr>
+<tr>
+<td>0x0c</td>
+<td>IRQ4</td>
+<td></td>
+</tr>
+<tr>
+<td>0x0d</td>
+<td>IRQ5</td>
+<td></td>
+</tr>
+<tr>
+<td>0x0e</td>
+<td>IRQ6</td>
+<td></td>
+</tr>
+<tr>
+<td>0x0e</td>
+<td>IRQ7</td>
+<td></td>
+</tr>
+<tr>
+<td>0x10</td>
+<td>VIDEO</td>
+<td>显示</td>
+</tr>
+<tr>
+<td>0x11</td>
+<td>GET EQUIPMENT LIST</td>
+<td>设备列表</td>
+</tr>
+<tr>
+<td>0x12</td>
+<td>GET MEMORY SIZE</td>
+<td>内存大小</td>
+</tr>
+<tr>
+<td>0x13</td>
+<td>DISK</td>
+<td>磁盘</td>
+</tr>
+<tr>
+<td>0x14</td>
+<td>SERIAL</td>
+<td>串行口服务</td>
+</tr>
+<tr>
+<td>0x15</td>
+<td>SYSTEM</td>
+<td>系统</td>
+</tr>
+<tr>
+<td>0x16</td>
+<td>KEYBOARD</td>
+<td>键盘</td>
+</tr>
+<tr>
+<td>0x17</td>
+<td>PRINTER</td>
+<td>打印机</td>
+</tr>
+<tr>
+<td>0x18</td>
+<td>CASETTE BASIC</td>
+<td></td>
+</tr>
+<tr>
+<td>0x19</td>
+<td>BOOTSTRAP LOADER</td>
+<td>时钟</td>
+</tr>
+<tr>
+<td>0x1a</td>
+<td>TIME</td>
+<td></td>
+</tr>
+<tr>
+<td>0x1b</td>
+<td>KEYBOARD - CONTROL-BREAK HANDLER</td>
+<td></td>
+</tr>
+<tr>
+<td>0x1c</td>
+<td>TIME - SYSTEM TIMER TICK</td>
+<td></td>
+</tr>
+<tr>
+<td>0x1d</td>
+<td>SYSTEM DATA - VIDEO PARAMETER TABLES</td>
+<td></td>
+</tr>
+<tr>
+<td>0x1e</td>
+<td>SYSTEM DATA - DISKETTE PARAMETERS</td>
+<td></td>
+</tr>
+<tr>
+<td>0x1f</td>
+<td>SYSTEM DATA - 8x8 GRAPHICS FONT</td>
+<td></td>
+</tr>
+<tr>
+<td>0x70</td>
+<td>IRQ8 - CMOS REAL-TIME CLOCK</td>
+<td></td>
+</tr>
+<tr>
+<td>0x71</td>
+<td>IRQ9 - REDIRECTED TO INT 0A BY BIOS</td>
+<td></td>
+</tr>
+<tr>
+<td>0x72</td>
+<td>IRQ10 - RESERVED</td>
+<td></td>
+</tr>
+<tr>
+<td>0x73</td>
+<td>IRQ11 - RESERVED</td>
+<td></td>
+</tr>
+<tr>
+<td>0x74</td>
+<td>IRQ12 - POINTING DEVICE</td>
+<td></td>
+</tr>
+<tr>
+<td>0x75</td>
+<td>IRQ13 - MATH COPROCESSOR EXCEPTION</td>
+<td></td>
+</tr>
+<tr>
+<td>0x76</td>
+<td>IRQ14 - HARD DISK CONTROLLER OPERATION COMPLETE</td>
+<td></td>
+</tr>
+<tr>
+<td>0x77</td>
+<td>IRQ15 - SECONDARY IDE CONTROLLER OPERATION</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 
     </div>
 
     <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">文章作者</span>
-    <span class="item-content">shawn</span>
+    <span class="item-content">寒冰</span>
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">
-        2021-08-01
+        2018/10/14
         
     </span>
   </p>
@@ -217,13 +400,13 @@ mov ax,bx                    // 汇编指令
           <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/chap-1.6-%E6%B1%87%E7%BC%96%E7%BC%96%E8%AF%91%E5%99%A8/">
+        <a class="prev" href="/post/chap1.8_%E6%B8%85%E5%B1%8F/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">汇编编译器</span>
+            <span class="prev-text nav-default">1.8_清屏</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/chap-1.1-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/">
-            <span class="next-text nav-default">计算机启动过程</span>
+        <a class="next" href="/post/chap1.6_%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/">
+            <span class="next-text nav-default">1.6_二进制文件</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -274,8 +457,8 @@ mov ax,bx                    // 汇编指令
 
   <span class="copyright-year">
     &copy; 
-    2017 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>shawn</span>
+    2012 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>寒冰</span>
   </span>
 </div>
 

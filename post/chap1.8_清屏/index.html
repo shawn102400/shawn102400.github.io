@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>1.8_清屏 - 寒冰小站</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="寒冰" /><meta name="description" content="清屏 [TOC] 需要的工具 qemu: qemu (windows版本：https://qemu.weilnetz.de/w64/2021/) BIOS中断清屏 清屏是通过B" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.92.0 with theme even" />
+
+
+<link rel="canonical" href="https://blog.shawn1024.fun/post/chap1.8_%E6%B8%85%E5%B1%8F/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="1.8_清屏" />
+<meta property="og:description" content="清屏 [TOC] 需要的工具 qemu: qemu (windows版本：https://qemu.weilnetz.de/w64/2021/) BIOS中断清屏 清屏是通过B" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.shawn1024.fun/post/chap1.8_%E6%B8%85%E5%B1%8F/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-10-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-10-21T00:00:00+00:00" />
+
+<meta itemprop="name" content="1.8_清屏">
+<meta itemprop="description" content="清屏 [TOC] 需要的工具 qemu: qemu (windows版本：https://qemu.weilnetz.de/w64/2021/) BIOS中断清屏 清屏是通过B"><meta itemprop="datePublished" content="2018-10-21T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-10-21T00:00:00+00:00" />
+<meta itemprop="wordCount" content="659">
+<meta itemprop="keywords" content="操作系统," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="1.8_清屏"/>
+<meta name="twitter:description" content="清屏 [TOC] 需要的工具 qemu: qemu (windows版本：https://qemu.weilnetz.de/w64/2021/) BIOS中断清屏 清屏是通过B"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">寒冰小站</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">寒冰小站</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">1.8_清屏</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018/10/21 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"> 操作系统 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#清屏">清屏</a>
+          <ul>
+            <li><a href="#需要的工具">需要的工具</a></li>
+            <li><a href="#bios中断清屏">BIOS中断清屏</a></li>
+            <li><a href="#实现">实现</a></li>
+            <li><a href="#创建buildsh脚本">创建build.sh脚本</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="清屏">清屏</h2>
+<p>[TOC]</p>
+<h3 id="需要的工具">需要的工具</h3>
+<blockquote>
+<p>qemu: <a href="https://www.qemu.org/">qemu</a></p>
+<p>(windows版本：https://qemu.weilnetz.de/w64/2021/)</p>
+</blockquote>
+<h3 id="bios中断清屏">BIOS中断清屏</h3>
+<p>清屏是通过BIOS中断，来滚动屏幕，达到清屏的效果。</p>
+<p><strong>1. BIOS中断滚屏</strong></p>
+<p>中断 int 10h，AH = 06H / 07H</p>
+<table>
+<thead>
+<tr>
+<th>寄存器</th>
+<th>说明</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AH</td>
+<td>功能编码</td>
+<td>向上滚屏：06H，向下滚屏 : 07H</td>
+</tr>
+<tr>
+<td>BH</td>
+<td>空白区域的缺省属性</td>
+<td></td>
+</tr>
+<tr>
+<td>AL</td>
+<td>滚动行数</td>
+<td>0：清窗口</td>
+</tr>
+<tr>
+<td>CH、CL</td>
+<td>滚动区域左上角位置：Y坐标，X坐标</td>
+<td></td>
+</tr>
+<tr>
+<td>DH、DL</td>
+<td>滚动区域右下角位置：Y坐标，X坐标</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>例如：使用蓝底白字清屏</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">;---------------------------
+;清除屏幕	 
+mov ah,0x06								
+mov al,0
+mov cx,0   
+mov df,0xffff  
+mov bh,0x17				;属性为蓝底白字
+int 0x10
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>2. BIOS中断设置光标位置：</strong></p>
+<p>中断 int 10h</p>
+<p>功能描述：用文本坐标下设置光标位置</p>
+<p>入口参数：</p>
+<table>
+<thead>
+<tr>
+<th>寄存器</th>
+<th>说明</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AH</td>
+<td>功能编码</td>
+<td>设置光标位置：02H</td>
+</tr>
+<tr>
+<td>BH</td>
+<td>显示页码</td>
+<td></td>
+</tr>
+<tr>
+<td>DH，DL</td>
+<td>行，列 (Y坐标，X坐标)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>例如：设置光标到第一行第一列</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">    ;---------------------------			
+    ;光标位置初始化
+    mov ah,0x02				
+    mov bh,0
+    mov dx,0
+    int 0x10
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="实现">实现</h3>
+<p><strong>1. 代码</strong></p>
+<p>boot.asm内容如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">; GloxOS BOOT
+[bits 16]
+
+org     0x7c00         ; 指明程序的偏移的基地址
+
+jmp     Entry          ; 跳转到程序入口
+db 		0x90
+db      &#34;GLOXBOOT&#34;
+
+; ----------------------------
+; 程序入口
+; ----------------------------
+Entry:
+
+    ; ---------------------------
+    ; 清除屏幕
+    ; ----------------------------
+    mov ah,0x06
+    mov bh,0x07
+    mov al,0
+    mov cx,0
+    mov dx,0xffff
+    mov bh,0x17        ; 属性为蓝底白字
+    int 0x10
+
+    ; ---------------------------
+    ; 光标位置初始化
+    ; ----------------------------
+    mov ah,0x02
+    mov bh,0
+    mov dx,0
+    int 0x10
+
+Fin:
+    hlt
+    jmp Fin            ; 进入死循环，不再往下执行。
+
+Fill_Sector:
+    resb    510-($-$$)      ; 处理当前行$至结束(1FE)的填充
+    db      0x55, 0xaa
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="创建buildsh脚本">创建build.sh脚本</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/bash
+</span><span class="cp"></span>
+<span class="nv">NASM</span><span class="o">=</span>nasm
+<span class="nv">$NASM</span> -f bin -o build/boot.bin boot/boot.asm
+dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>build/gloxos.img <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">count</span><span class="o">=</span><span class="m">2880</span>
+dd <span class="k">if</span><span class="o">=</span>build/boot.bin  <span class="nv">of</span><span class="o">=</span>build/gloxos.img <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">count</span><span class="o">=</span><span class="m">1</span>  <span class="nv">conv</span><span class="o">=</span>notrunc
+</code></pre></td></tr></table>
+</div>
+</div><p>编译成gloxos.ima镜像文件。</p>
+<p><strong>运行</strong></p>
+<p>创建run.sh脚本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+</span><span class="cp"></span>
+<span class="nv">QEMU</span><span class="o">=</span>qemu-system-x86_64
+<span class="nv">$QEMU</span> -m <span class="m">128</span> -rtc <span class="nv">base</span><span class="o">=</span>localtime -fda build/gloxos.img
+</code></pre></td></tr></table>
+</div>
+</div><p>执行run.sh脚本</p>
+<p>结果如图</p>
+<p><img src="images/1.9_1.png" alt="images/1.8_1.png"></p>
+<p><strong>代码地址</strong></p>
+<p><a href="https://github.com/sxt102400/ratsos/tree/master/chapter2.4">https://github.com/sxt102400/ratsos/tree/master/chapter2.4</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">寒冰</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2018/10/21
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/chap1.9_bochs/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">1.9_Bochs</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/chap1.7_bios%E4%B8%AD%E6%96%AD/">
+            <span class="next-text nav-default">1.7_BIOS中断</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://blog.shawn1024.fun/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2012 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>寒冰</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
