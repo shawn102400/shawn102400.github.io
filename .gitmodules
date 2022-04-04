@@ -1,9 +1,6 @@
-[submodule "themes/even"]
-	path = themes/even
-	url = https://github.com/olOwOlo/hugo-theme-even
+[submodule "themes/next"]
+	path = themes/next
+	url = https://github.com/theme-next/hexo-theme-next
 [submodule "public"]
 	path = public
 	url = https://github.com/shawn102400/shawn102400.github.io.git
-[submodule "themes/Blonde"]
-	path = themes/Blonde
-	url = https://github.com/opera7133/Blonde
