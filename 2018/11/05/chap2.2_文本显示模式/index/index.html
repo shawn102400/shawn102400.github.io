@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.shawn1024.fun","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="文本显示模式[TOC] 显示模式计算机在加电自检之后，会将显示初始化为80 x 25的文本模式。此时，我们可以进行文本显示了。 而计算机的显示一般有2种模式，可以通过中断来修改显示模式  文本模式 图形模式  文本模式只能显示字符，一般通过BIOS中断修改。不过首先我们尝试修改显存的方式来显示字符。 而计算机的显示一般有2种模式：  文本模式：开始地址地址：0xB8000 图形模式:  开始地址地">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2.2_文本显示模式">
+<meta property="og:url" content="https://blog.shawn1024.fun/2018/11/05/chap2.2_%E6%96%87%E6%9C%AC%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/index/index.html">
+<meta property="og:site_name" content="寒冰小站">
+<meta property="og:description" content="文本显示模式[TOC] 显示模式计算机在加电自检之后，会将显示初始化为80 x 25的文本模式。此时，我们可以进行文本显示了。 而计算机的显示一般有2种模式，可以通过中断来修改显示模式  文本模式 图形模式  文本模式只能显示字符，一般通过BIOS中断修改。不过首先我们尝试修改显存的方式来显示字符。 而计算机的显示一般有2种模式：  文本模式：开始地址地址：0xB8000 图形模式:  开始地址地">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.shawn1024.fun/images/1.8_1.png">
+<meta property="article:published_time" content="2018-11-05T03:27:28.000Z">
+<meta property="article:modified_time" content="2022-03-20T08:49:24.951Z">
+<meta property="article:author" content="shawnxt">
+<meta property="article:tag" content="操作系统">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.shawn1024.fun/images/1.8_1.png">
+
+<link rel="canonical" href="https://blog.shawn1024.fun/2018/11/05/chap2.2_%E6%96%87%E6%9C%AC%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/index/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2.2_文本显示模式 | 寒冰小站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">寒冰小站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">34</span></a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">1</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">1</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.shawn1024.fun/2018/11/05/chap2.2_%E6%96%87%E6%9C%AC%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/index/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="shawnxt">
+      <meta itemprop="description" content="寒冰的狂暴区">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="寒冰小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2.2_文本显示模式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-05 11:27:28" itemprop="dateCreated datePublished" datetime="2018-11-05T11:27:28+08:00">2018-11-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-20 16:49:24" itemprop="dateModified" datetime="2022-03-20T16:49:24+08:00">2022-03-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="文本显示模式"><a href="#文本显示模式" class="headerlink" title="文本显示模式"></a>文本显示模式</h1><p>[TOC]</p>
+<h3 id="显示模式"><a href="#显示模式" class="headerlink" title="显示模式"></a>显示模式</h3><p>计算机在加电自检之后，会将显示初始化为80 x 25的文本模式。此时，我们可以进行文本显示了。</p>
+<p>而计算机的显示一般有2种模式，可以通过中断来修改显示模式</p>
+<ul>
+<li>文本模式</li>
+<li>图形模式</li>
+</ul>
+<p>文本模式只能显示字符，一般通过BIOS中断修改。不过首先我们尝试修改显存的方式来显示字符。</p>
+<p>而计算机的显示一般有2种模式：</p>
+<ul>
+<li>文本模式：开始地址地址：0xB8000</li>
+<li>图形模式:  开始地址地址：0xA0000</li>
+</ul>
+<p>图形模式，存储的内容主要是颜色信息，而文字模式，存储的内容主要是文字信息。</p>
+<p>比如，刚启动linux时，输出的一堆的启动信息就是，进入文本模式。而开启xwindows才会进入图形模式。</p>
+<p>根据分辨率，可用的显示模式如下所列：</p>
+<h3 id="文本显示模式-1"><a href="#文本显示模式-1" class="headerlink" title="文本显示模式"></a>文本显示模式</h3><p><strong>2. 80 x 25文本模式</strong></p>
+<p>刚开始启动计算机时，系统默认进入文本模式。在计算机在加电自检完成之后，会默认将显示初始化为80 x 25的文本模式</p>
+<p>在 80 x 25的文本模式，屏幕可以显示25行80列。显示地址段是位于0xB8000-oxBffff的地址段。</p>
+<p>我们可以通过修改0xB8000-oxBffff地址段的值，来在屏幕上显示文本。</p>
+<p>此模式下每2个内存地址为一组，32位代表一个文字输出： 高地址16位为颜色信息，低地址16位为文字信息</p>
+<p>因此我们可以通过修改这段显示地址区域的值，从而来控制屏幕输出文字。</p>
+<p>例如：80x25文本模式的颜色如下：</p>
+<p>在 80 x 25的文本模式，显存地址是位于0xB8000-oxBffff。</p>
+<p>背景色颜色（背景），4位分别为 KRGB，K为是否闪烁</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>颜色</th>
+<th>值</th>
+<th>颜色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>黑色</td>
+<td>4</td>
+<td>红色</td>
+</tr>
+<tr>
+<td>1</td>
+<td>蓝色</td>
+<td>5</td>
+<td>紫色</td>
+</tr>
+<tr>
+<td>2</td>
+<td>绿色</td>
+<td>6</td>
+<td>黄色</td>
+</tr>
+<tr>
+<td>3</td>
+<td>青色</td>
+<td>7</td>
+<td>白色</td>
+</tr>
+</tbody></table>
+<p>前景色颜色（文字），4位，分别为 IRGB</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>颜色</th>
+<th>值</th>
+<th>颜色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>黑色</td>
+<td>8</td>
+<td>灰色</td>
+</tr>
+<tr>
+<td>1</td>
+<td>蓝色</td>
+<td>9</td>
+<td>淡蓝色</td>
+</tr>
+<tr>
+<td>2</td>
+<td>绿色</td>
+<td>A</td>
+<td>淡绿色</td>
+</tr>
+<tr>
+<td>3</td>
+<td>青色</td>
+<td>B</td>
+<td>淡青色</td>
+</tr>
+<tr>
+<td>4</td>
+<td>红色</td>
+<td>C</td>
+<td>淡红色</td>
+</tr>
+<tr>
+<td>5</td>
+<td>紫色</td>
+<td>D</td>
+<td>淡紫色</td>
+</tr>
+<tr>
+<td>6</td>
+<td>黄色</td>
+<td>E</td>
+<td>淡黄色</td>
+</tr>
+<tr>
+<td>7</td>
+<td>白色</td>
+<td>F</td>
+<td>亮白色</td>
+</tr>
+</tbody></table>
+<h2 id="显示字符"><a href="#显示字符" class="headerlink" title="显示字符"></a>显示字符</h2><p><strong>1. 通过修改内存数据来显示字符</strong></p>
+<p>启动后实模式下-文本模式下的初始显存地址范围为[0xB8000-0xBFFFFF]。</p>
+<p>显存地址的值对应屏幕的显示数据，我们可以修改显存值来改变屏幕显示。</p>
+<p>我们使用段和偏移来表示这段显存信息，段基本地址为0xB800，偏移为0x0000到0xFFFF。</p>
+<p>代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov ax,0xb800</span><br><span class="line">mov ds,ax                ;配置显存段地址</span><br><span class="line">mov byte [0x00],&#x27;r&#x27;      ;输出字符，内存地址为 DS&lt;&lt;4 + 0x00</span><br><span class="line">mov byte [0x01],0x17     ;设置颜色(背景色蓝，前景色白)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>2. 实现代码</strong></p>
+<p>新建一个目录boot，新建文件boot&#x2F;boot.asm,代码如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">;GloxOS BOOT</span><br><span class="line">;TAB=4</span><br><span class="line">[bits 16]</span><br><span class="line">	org     0x7c00 				;指明程序的偏移的基地址</span><br><span class="line"></span><br><span class="line">;boot程序</span><br><span class="line">	jmp     Entry</span><br><span class="line"></span><br><span class="line">;程序核心内容</span><br><span class="line">Entry:</span><br><span class="line">	mov ax,0xb800</span><br><span class="line">	mov gs,ax                   ;显存段地址</span><br><span class="line">	mov byte [gs:0x00],&#x27;h&#x27;      ;输出字符</span><br><span class="line">	mov byte [gs:0x01],0x1F     ;设置颜色(背景色蓝，前景色白)</span><br><span class="line">	mov byte [gs:0x02],&#x27;e&#x27;</span><br><span class="line">	mov byte [gs:0x03],0x1F</span><br><span class="line">	mov byte [gs:0x04],&#x27;l&#x27;</span><br><span class="line">	mov byte [gs:0x05],0x1F</span><br><span class="line">	mov byte [gs:0x06],&#x27;l&#x27;</span><br><span class="line">	mov byte [gs:0x07],0x1F</span><br><span class="line">	mov byte [gs:0x08],&#x27;o&#x27;</span><br><span class="line">	mov byte [gs:0x09],0x1F</span><br><span class="line">	mov byte [gs:0x0a],&#x27;,&#x27;     </span><br><span class="line">	mov byte [gs:0x0b],0x1F     </span><br><span class="line">	mov byte [gs:0x0c],&#x27;g&#x27;		 ;输出字符</span><br><span class="line">	mov byte [gs:0x0d],0x1D		 ;设置颜色(背景色蓝，前景淡紫)</span><br><span class="line">	mov byte [gs:0x0e],&#x27;l&#x27;</span><br><span class="line">	mov byte [gs:0x0f],0x1D</span><br><span class="line">	mov byte [gs:0x10],&#x27;o&#x27;</span><br><span class="line">	mov byte [gs:0x11],0x1D</span><br><span class="line">	mov byte [gs:0x12],&#x27;x&#x27;</span><br><span class="line">	mov byte [gs:0x13],0x1D</span><br><span class="line">                 	</span><br><span class="line">	jmp $						;进入死循环，不再往下执行。</span><br><span class="line"></span><br><span class="line">Fill_Sector:</span><br><span class="line">	resb    510-($-$$)       	;处理当前行$至结束(1FE)的填充</span><br><span class="line">	db      0x55, 0xaa</span><br></pre></td></tr></table></figure>
+
+
+<p>编译成gloxos.img镜像文件。</p>
+<p>总结，也可以构建完整的 build.sh 执行脚本如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">NASM=nasm</span><br><span class="line">$NASM -f bin -o boot.bin boot/boot.asm</span><br><span class="line">dd if=/dev/zero of=build/gloxos.img bs=512 count=2880</span><br><span class="line">dd if=build/boot.bin  of=build/gloxos.img bs=512 count=1  conv=notrunc</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>3. 在虚拟机运行</strong></p>
+<p>击显示运行系统：</p>
+<p><img src="/images/1.8_1.png" alt="images/1.8_1.png"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"># 操作系统</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/11/02/chap2.1_%E5%AE%9E%E6%A8%A1%E5%BC%8F/index/" rel="prev" title="2.1_实模式">
+      <i class="fa fa-chevron-left"></i> 2.1_实模式
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/11/07/chap2.3_%E6%98%BE%E7%A4%BA%E5%AD%97%E7%AC%A6%E4%B8%B21/index/" rel="next" title="2.3_显示字符">
+      2.3_显示字符 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">文本显示模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.0.1.</span> <span class="nav-text">显示模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F-1"><span class="nav-number">1.0.2.</span> <span class="nav-text">文本显示模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E5%AD%97%E7%AC%A6"><span class="nav-number">1.1.</span> <span class="nav-text">显示字符</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">shawnxt</p>
+  <div class="site-description" itemprop="description">寒冰的狂暴区</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shawnxt</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
